@@ -9,7 +9,7 @@ public abstract class Personnage {
         this.direction = direction;
     }
 
-    public abstract void déplacer();
+    public abstract void deplacer();
 
     public abstract void mourir();
 

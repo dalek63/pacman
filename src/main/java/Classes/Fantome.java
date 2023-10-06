@@ -28,11 +28,11 @@ public abstract class Fantome extends Personnage {
         // Comportement de devenir effrayé en mangeant un super-point
     }
 
-    public void mangé() {
+    public void manger() {
         // Comportement de devenir mangé par Pac-Man
     }
 
     @Override
-    public void déplacer() {
+    public void deplacer() {
     }
 }

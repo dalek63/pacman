@@ -39,7 +39,7 @@ public abstract class PacMan extends Personnage {
     }
 
     @Override
-    public void déplacer() {
+    public void deplacer() {
     }
 
 }

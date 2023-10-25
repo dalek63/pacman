@@ -31,60 +31,6 @@ public class PacmanApplication {
 
 		j.demarrerJeu();
 
-	/*
-		String[][] tableau2D = new String[11][11];
-		int x;
-
-		for (int i = 0; i < tableau2D.length; i++) {
-			for (int j = 0; j < tableau2D.length; j++) {
-				tableau2D[i][j]= "X";
-			}
-		}
-
-		tableau2D[0][4]="P";
-
-		while (true) {
-			x = 0;
-			for (int i = 0; i < tableau2D.length; i++) {
-				for (int j = 0; j < tableau2D.length; j++) {
-					System.out.print(tableau2D[i][j]+ "    ");
-
-				}
-				System.out.println();
-
-			}
-
-			System.out.println("-------------------------------------------------------------------");
-
-			for (int i = 0; i < tableau2D.length; i++) {
-				for (int j = 0; j < tableau2D.length; j++) {
-					if(tableau2D[i][j]=="P"){
-						x = x +1;
-						if(x==1){
-							if(j == tableau2D.length-1) {
-								tableau2D[i][j] = "X";
-								tableau2D[i+1][0] = "P";
-							}
-							else{
-								tableau2D[i][j] = "X";
-								tableau2D[i][j+1] = "P";
-							}
-						}
-					}
-
-				}
-				System.out.println();
-
-			}
-
-			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-
-	*/
 	}
 
 }

@@ -1,6 +1,6 @@
 package Classes;
 
-public abstract class Fantome extends Personnage {
+public class Fantome extends Personnage {
     private ModeFantome mode;
 
     public Fantome(Point position, Direction direction, ModeFantome mode) {
@@ -34,5 +34,10 @@ public abstract class Fantome extends Personnage {
 
     @Override
     public void deplacer() {
+    }
+
+    @Override
+    public void mourir() {
+
     }
 }

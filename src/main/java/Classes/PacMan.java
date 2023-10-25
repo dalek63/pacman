@@ -1,5 +1,5 @@
 package Classes;
-public abstract class PacMan extends Personnage {
+public class PacMan extends Personnage {
     private int vies;
     private int vitesse;
     private String couleur;
@@ -40,6 +40,11 @@ public abstract class PacMan extends Personnage {
 
     @Override
     public void deplacer() {
+    }
+
+    @Override
+    public void mourir() {
+
     }
 
 }

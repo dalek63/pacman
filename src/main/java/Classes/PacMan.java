@@ -1,8 +1,10 @@
 package Classes;
-public abstract class PacMan extends Personnage {
+public class PacMan extends Personnage {
     private int vies;
     private int vitesse;
     private String couleur;
+
+    private Point point = new Point(1,2);
 
     public PacMan(Point position, Direction direction, int vies, int vitesse, String couleur) {
         super(position, direction);
@@ -40,6 +42,11 @@ public abstract class PacMan extends Personnage {
 
     @Override
     public void deplacer() {
+    }
+
+    @Override
+    public void mourir() {
+
     }
 
 }

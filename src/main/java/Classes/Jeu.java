@@ -105,20 +105,33 @@ public class Jeu {
                         x = x +1;
                             if (x == 1) {
                                 if (d == Direction.DROITE && tableau2D[i][j+1]!= 'M' && j< tableau2D[0].length-1) {
+                                    //REACTION A CASE
+
                                     tableau2D[i][j] = '.';
                                     tableau2D[i][j + 1] = 'P';
                                 }
                                 else if (d == Direction.HAUT && tableau2D[i-1][j]!= 'M' && i> 0) {
+                                    //REACTION A CASE
                                     tableau2D[i][j] = '.';
                                     tableau2D[i-1][j] = 'P';
+
+
                                 }
                                 else if (d == Direction.GAUCHE && tableau2D[i][j-1]!= 'M' && j> 0) {
+                                    //REACTION A CASE
                                     tableau2D[i][j] = '.';
                                     tableau2D[i][j - 1] = 'P';
+
+
+
                                 }
                                 else if (d == Direction.BAS && tableau2D[i+1][j]!= 'M' && i< tableau2D.length-1) {
+                                    //REACTION A CASE
                                     tableau2D[i][j] = '.';
                                     tableau2D[i+1][j] = 'P';
+
+
+
                                 }
 
                             }
@@ -126,13 +139,13 @@ public class Jeu {
 
 
                 }
-                d = directionAleatoire(d);
+                d = directionAleatoire(d); //Mettre ici la valeur de direction reçu
                 System.out.println();
 
             }
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();

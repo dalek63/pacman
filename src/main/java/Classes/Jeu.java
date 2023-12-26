@@ -104,33 +104,41 @@ public class Jeu {
                     if(tableau2D[i][j]=='P'){
                         x = x +1;
                             if (x == 1) {
-                                if (d == Direction.DROITE && tableau2D[i][j+1]!= 'M' && j< tableau2D[0].length-1) {
+                                //DROITE
+                                if (d == Direction.DROITE && j< tableau2D[0].length-1) {
                                     //REACTION A CASE
-
-                                    tableau2D[i][j] = '.';
-                                    tableau2D[i][j + 1] = 'P';
-                                }
-                                else if (d == Direction.HAUT && tableau2D[i-1][j]!= 'M' && i> 0) {
-                                    //REACTION A CASE
-                                    tableau2D[i][j] = '.';
-                                    tableau2D[i-1][j] = 'P';
+                                    if(tableau2D[i][j+1]=='.'){
+                                        tableau2D[i][j] = '.';
+                                        tableau2D[i][j + 1] = 'P';
+                                    } else if (tableau2D[i][j+1]=='M') {System.out.println("MUR A DROITE");}
 
 
                                 }
-                                else if (d == Direction.GAUCHE && tableau2D[i][j-1]!= 'M' && j> 0) {
+                                //HAUT
+                                else if (d == Direction.HAUT && i> 0) {
                                     //REACTION A CASE
-                                    tableau2D[i][j] = '.';
-                                    tableau2D[i][j - 1] = 'P';
-
-
+                                    if(tableau2D[i-1][j]=='.'){
+                                        tableau2D[i][j] = '.';
+                                        tableau2D[i-1][j] = 'P';
+                                    }else if(tableau2D[i-1][j]=='M'){System.out.println("MUR EN HAUT");}
 
                                 }
-                                else if (d == Direction.BAS && tableau2D[i+1][j]!= 'M' && i< tableau2D.length-1) {
+                                //GAUCHE
+                                else if (d == Direction.GAUCHE && j> 0) {
                                     //REACTION A CASE
-                                    tableau2D[i][j] = '.';
-                                    tableau2D[i+1][j] = 'P';
+                                    if(tableau2D[i][j-1]=='.') {
+                                        tableau2D[i][j] = '.';
+                                        tableau2D[i][j - 1] = 'P';
+                                    }else if(tableau2D[i][j-1]=='M') {System.out.println("MUR A GAUCHE");}
 
-
+                                }
+                                //BAS
+                                else if (d == Direction.BAS && i< tableau2D.length-1) {
+                                    //REACTION A CASE
+                                    if(tableau2D[i+1][j]=='.') {
+                                        tableau2D[i][j] = '.';
+                                        tableau2D[i + 1][j] = 'P';
+                                    }else if(tableau2D[i+1][j]=='M'){System.out.println("MUR EN BAS");}
 
                                 }
 
@@ -145,22 +153,15 @@ public class Jeu {
             }
 
             try {
-                Thread.sleep(100);
+                Thread.sleep(1000);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
-
-
-
-
-
-
-
-
     }
+
 
 
     private Direction directionAleatoire(Direction d) {

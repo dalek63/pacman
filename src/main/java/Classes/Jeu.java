@@ -1,5 +1,6 @@
 package Classes;
 import java.util.List;
+import java.util.Random;
 
 public class Jeu {
     private Terrain terrain;
@@ -102,26 +103,37 @@ public class Jeu {
 
                     if(tableau2D[i][j]=='P'){
                         x = x +1;
-                        if(tableau2D[i][j+1]!= 'M') {
                             if (x == 1) {
-                                if (j == tableau2D.length - 1) {
-                                    tableau2D[i][j] = '.';
-                                    tableau2D[i + 1][0] = 'P';
-                                } else {
+                                if (d == Direction.DROITE && tableau2D[i][j+1]!= 'M' && j< tableau2D[0].length-1) {
                                     tableau2D[i][j] = '.';
                                     tableau2D[i][j + 1] = 'P';
                                 }
+                                else if (d == Direction.HAUT && tableau2D[i-1][j]!= 'M' && i> 0) {
+                                    tableau2D[i][j] = '.';
+                                    tableau2D[i-1][j] = 'P';
+                                }
+                                else if (d == Direction.GAUCHE && tableau2D[i][j-1]!= 'M' && j> 0) {
+                                    tableau2D[i][j] = '.';
+                                    tableau2D[i][j - 1] = 'P';
+                                }
+                                else if (d == Direction.BAS && tableau2D[i+1][j]!= 'M' && i< tableau2D.length-1) {
+                                    tableau2D[i][j] = '.';
+                                    tableau2D[i+1][j] = 'P';
+                                }
+
                             }
                         }
-                    }
+
 
                 }
+                d = directionAleatoire(d);
                 System.out.println();
 
             }
 
             try {
                 Thread.sleep(1000);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -136,6 +148,34 @@ public class Jeu {
 
 
     }
+
+
+    private Direction directionAleatoire(Direction d) {
+        Random random = new Random();
+
+        int randomDirection = random.nextInt(4);
+
+        if (randomDirection ==0){
+            d=Direction.BAS;
+        }
+        else if (randomDirection ==1){
+            d=Direction.HAUT;
+        }
+        else if (randomDirection ==2){
+            d=Direction.DROITE;
+        }
+        else if (randomDirection ==3){
+            d=Direction.GAUCHE;
+        }
+
+        return d;
+    }
+
+
+
+
+
+
 
     public void terminerJeu() {
     }

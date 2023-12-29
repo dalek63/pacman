@@ -403,7 +403,7 @@ public class Jeu {
 
 
                                 // Vérifiez si la case contient un fruit ('B' pour cerise, 'K' pour kiwi, 'C' pour litchi, etc.)
-                                if (tableau2D[i][j-1] == 'B' || tableau2D[i][j-1] == 'K' || tableau2D[i-1][j] == 'C') {
+                                if (tableau2D[i][j-1] == 'B' || tableau2D[i][j-1] == 'K' || tableau2D[i][j-1] == 'C') {
                                     Fruit fruitMange = null; // Initialisez un objet Fruit à null
 
                                     switch (tableau2D[i][j-1]) {

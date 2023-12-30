@@ -63,17 +63,17 @@ public class Jeu {
 
         char[][] tableau2D = {
                 {'P', '.', '.', '.', 'M', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
-                {'.', 'M', '.', '.', 'M', '.', '.', '.', 'M', 'M', '.', '.', 'M', '.', '.'},
-                {'.', 'M', 'M', '.', 'M', 'M', '.', 'M', '.', '.', '.', '.', '.', '.', '.'},
-                {'.', '.', 'M', 'M', '.', 'M', '.', 'M', '.', '.', '.', 'M', 'M', 'M', '.'},
+                {'.', 'M', '.', '.', '.', '.', '.', '.', 'M', 'M', '.', '.', 'M', '.', '.'},
+                {'.', 'M', 'M', '.', 'M', 'M', '.', 'M', '.', '.', 'F', '.', '.', '.', '.'},
+                {'.', '.', 'M', '.', '.', 'M', '.', '.', '.', '.', '.', 'M', 'M', 'M', '.'},
                 {'.', '.', '.', '.', '.', '.', '.', 'M', 'M', 'M', '.', '.', '.', '.', '.'},
                 {'.', '.', 'M', '.', '.', 'M', '.', '.', 'M', '.', '.', 'M', '.', '.', '.'},
                 {'.', '.', '.', '.', '.', '.', '.', '.', '.', 'M', '.', 'M', 'M', '.', '.'},
-                {'M', 'M', 'M', '.', 'M', '.', 'M', '-', 'M', '.', 'M', '.', '.', '.', '.'},
-                {'.', '.', 'M', '.', 'M', '.', 'M', '.', 'M', '.', 'M', '.', '.', '.', '.'},
-                {'M', 'M', 'M', '.', '.', '.', 'M', 'M', 'M', '.', '.', '.', 'M', '.', '.'},
+                {'M', 'M', 'M', '.', 'M', '.', 'M', '.', 'M', '.', 'M', '.', '.', '.', '.'},
+                {'.', '.', 'M', '.', 'M', '.', 'M', '.', '.', '.', 'M', '.', '.', '.', '.'},
+                {'M', '.', 'M', '.', '.', '.', 'M', '.', 'M', '.', '.', '.', 'M', '.', '.'},
                 {'.', '.', '.', '.', '.', '.', '.', '.', 'M', '.', '.', '.', 'M', '.', '.'},
-                {'M', 'M', 'M', 'M', 'M', 'M', 'M', '.', '.', '.', '.', '.', '.', '.', '.'},
+                {'M', '.', 'M', 'M', '.', 'M', 'M', '.', '.', '.', '.', '.', '.', '.', '.'},
                 {'.', '.', '.', 'M', '.', '.', '.', '.', '.', 'M', '.', '.', 'M', '.', '.'},
                 {'.', '.', '.', 'M', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
                 {'.', '.', '.', '.', '.', 'M', 'M', 'M', '.', '.', '.', '.', '.', '.', '.'}
@@ -81,19 +81,25 @@ public class Jeu {
 
 
         Direction d = Direction.DROITE;
+        Direction df1 = Direction.DROITE;
 
 
         int x;
+        int y;
 
         while (true) {
+
+            //Affichage de direction de pacman et fantome ( debuggage )
+            System.out.println(d);
+            System.out.println(df1);
             x = 0;
+            y = 0;
+
             for (int i = 0; i < tableau2D.length; i++) {
                 for (int j = 0; j < tableau2D.length; j++) {
                     System.out.print(tableau2D[i][j]+ "    ");
-
                 }
                 System.out.println();
-
             }
 
             System.out.println("-------------------------------------------------------------------");
@@ -101,56 +107,131 @@ public class Jeu {
             for (int i = 0; i < tableau2D.length; i++) {
                 for (int j = 0; j < tableau2D.length; j++) {
 
-                    if(tableau2D[i][j]=='P'){
-                        x = x +1;
-                            if (x == 1) {
-                                //DROITE
-                                if (d == Direction.DROITE && j< tableau2D[0].length-1) {
-                                    //REACTION A CASE
-                                    if(tableau2D[i][j+1]=='.'){
-                                        tableau2D[i][j] = '.';
-                                        tableau2D[i][j + 1] = 'P';
-                                    } else if (tableau2D[i][j+1]=='M') {System.out.println("MUR A DROITE");}
-
-
-                                }
-                                //HAUT
-                                else if (d == Direction.HAUT && i> 0) {
-                                    //REACTION A CASE
-                                    if(tableau2D[i-1][j]=='.'){
-                                        tableau2D[i][j] = '.';
-                                        tableau2D[i-1][j] = 'P';
-                                    }else if(tableau2D[i-1][j]=='M'){System.out.println("MUR EN HAUT");}
-
-                                }
-                                //GAUCHE
-                                else if (d == Direction.GAUCHE && j> 0) {
-                                    //REACTION A CASE
-                                    if(tableau2D[i][j-1]=='.') {
-                                        tableau2D[i][j] = '.';
-                                        tableau2D[i][j - 1] = 'P';
-                                    }else if(tableau2D[i][j-1]=='M') {System.out.println("MUR A GAUCHE");}
-
-                                }
-                                //BAS
-                                else if (d == Direction.BAS && i< tableau2D.length-1) {
-                                    //REACTION A CASE
-                                    if(tableau2D[i+1][j]=='.') {
-                                        tableau2D[i][j] = '.';
-                                        tableau2D[i + 1][j] = 'P';
-                                    }else if(tableau2D[i+1][j]=='M'){System.out.println("MUR EN BAS");}
-
+                    if (tableau2D[i][j] == 'P') {
+                        x = x + 1;
+                        if (x == 1) {
+                            //DROITE
+                            if (d == Direction.DROITE && j < tableau2D[0].length - 1) {
+                                //REACTION A CASE
+                                if (tableau2D[i][j + 1] == '.') {
+                                    tableau2D[i][j] = '.';
+                                    tableau2D[i][j + 1] = 'P';
+                                } else if (tableau2D[i][j + 1] == 'M') {
+                                    System.out.println("MUR A DROITE");
+                                } else if (tableau2D[i][j + 1] == 'F') {
+                                    System.out.println("PERDU");
+                                    break;
                                 }
 
                             }
-                        }
+                            //HAUT
+                            else if (d == Direction.HAUT && i > 0) {
+                                //REACTION A CASE
+                                if (tableau2D[i - 1][j] == '.') {
+                                    tableau2D[i][j] = '.';
+                                    tableau2D[i - 1][j] = 'P';
+                                } else if (tableau2D[i - 1][j] == 'M') {
+                                    System.out.println("MUR EN HAUT");
+                                } else if (tableau2D[i - 1][j] == 'F') {
+                                    System.out.println("PERDU");
+                                    break;
+                                }
 
+                            }
+                            //GAUCHE
+                            else if (d == Direction.GAUCHE && j > 0) {
+                                //REACTION A CASE
+                                if (tableau2D[i][j - 1] == '.') {
+                                    tableau2D[i][j] = '.';
+                                    tableau2D[i][j - 1] = 'P';
+                                } else if (tableau2D[i][j - 1] == 'M') {
+                                    System.out.println("MUR A GAUCHE");
+                                } else if (tableau2D[i][j - 1] == 'F') {
+                                    System.out.println("PERDU");
+                                    break;
+                                }
+
+                            }
+                            //BAS
+                            else if (d == Direction.BAS && i < tableau2D.length - 1) {
+                                //REACTION A CASE
+                                if (tableau2D[i + 1][j] == '.') {
+                                    tableau2D[i][j] = '.';
+                                    tableau2D[i + 1][j] = 'P';
+                                } else if (tableau2D[i + 1][j] == 'M') {
+                                    System.out.println("MUR EN BAS");
+                                } else if (tableau2D[i + 1][j] == 'F') {
+                                    System.out.println("PERDU");
+                                    break;
+                                }
+
+                            }
+
+                        }
+                    }
+
+
+                    if(tableau2D[i][j]=='F'){
+                        y = y + 1;
+                        if (y == 1) {
+
+                            //DROITE
+                            if (df1 == Direction.DROITE && j < tableau2D[0].length - 1) {
+                                //REACTION A CASE
+                                if (tableau2D[i][j + 1] == '.') {
+                                    tableau2D[i][j] = '.';
+                                    tableau2D[i][j + 1] = 'F';
+                                } else if (tableau2D[i][j + 1] == 'M') {
+                                    System.out.println("MUR A DROITE");
+                                }
+
+                            }
+                            //HAUT
+                            else if (df1 == Direction.HAUT && i > 0) {
+                                //REACTION A CASE
+                                if (tableau2D[i - 1][j] == '.') {
+                                    tableau2D[i][j] = '.';
+                                    tableau2D[i - 1][j] = 'F';
+                                } else if (tableau2D[i - 1][j] == 'M') {
+                                    System.out.println("MUR EN HAUT");
+                                }
+
+                            }
+                            //GAUCHE
+                            else if (df1 == Direction.GAUCHE && j > 0) {
+                                //REACTION A CASE
+                                if (tableau2D[i][j - 1] == '.') {
+                                    tableau2D[i][j] = '.';
+                                    tableau2D[i][j - 1] = 'F';
+                                } else if (tableau2D[i][j - 1] == 'M') {
+                                    System.out.println("MUR A GAUCHE");
+                                }
+
+                            }
+                            //BAS
+                            else if (df1 == Direction.BAS && i < tableau2D.length - 1) {
+                                //REACTION A CASE
+                                if (tableau2D[i + 1][j] == '.') {
+                                    tableau2D[i][j] = '.';
+                                    tableau2D[i + 1][j] = 'F';
+                                } else if (tableau2D[i + 1][j] == 'M') {
+                                    System.out.println("MUR EN BAS");
+                                }
+
+                            }
+
+                        }
+                    }
 
                 }
+            }
                 d = directionAleatoire(d); //Mettre ici la valeur de direction reçu
+
+                df1 = directionAleatoire(df1);
+
                 System.out.println();
 
-            }
+
 
             try {
                 Thread.sleep(1000);

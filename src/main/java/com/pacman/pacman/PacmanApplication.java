@@ -17,7 +17,7 @@ public class PacmanApplication {
 
 		SpringApplication.run(PacmanApplication.class, args);
 
-		Terrain t = new Terrain(10,10);
+		Terrain t = new Terrain();
 		Point point = new Point(0,5);
 		Point point2 = new Point(3,7);
 		Point point3 = new Point(5,8);

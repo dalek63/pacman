@@ -81,7 +81,15 @@ public class Jeu {
         }
         return null; // Retourne null si aucune superboule correspondante n'est trouvée
     }
-
+    public void afficherTerrain() {
+        char[][] grille = terrain.getGrille();
+        for (int i = 0; i < grille.length; i++) {
+            for (int j = 0; j < grille[i].length; j++) {
+                System.out.print(grille[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
     public void demarrerJeu() {
 /*
         String[][] tableau2D = new String[11][11];
@@ -95,29 +103,12 @@ public class Jeu {
 
         tableau2D[0][4]="P";
 */
+       afficherTerrain();
 
-        char[][] tableau2D = {
-                {'P', 'o', 'K', 'K', 'M', '.', '.', '.', '.', '.', '.', '.', '.', 'O', '.'},
-                {'O', 'M', '.', 'C', 'M', '.', '.', '.', 'M', 'M', '.', 'o', 'M', '.', '.'},
-                {'K', 'M', 'M', 'O', 'M', 'M', '.', 'M', '.', 'C', '.', '.', '.', 'K', '.'},
-                {'O', '.', 'M', 'M', '.', 'M', '.', 'M', '.', '.', 'O', 'M', 'M', 'M', '.'},
-                {'.', '.', '.', 'B', '.', '.', '.', 'M', 'M', 'M', '.', '.', 'K', 'M', 'M'},
-                {'B', 'C', 'M', '.', '.', 'M', '.', 'O', 'M', '.', '.', 'M', '.', 'K', 'C'},
-                {'K', '.', '.', 'O', '.', '.', '.', 'M', '.', 'M', '.', 'M', 'M', 'M', '.'},
-                {'M', 'M', 'M', '.', 'M', 'B', 'M', 'K', 'M', '.', 'M', 'K', 'M', '.', 'o'},
-                {'.', '.', 'M', '.', 'M', '.', 'M', '.', 'M', 'o', 'M', '.', '.', 'B', '.'},
-                {'M', 'M', 'M', '.', '.', '.', 'M', 'M', 'M', '.', '.', 'C', 'M', 'M', '.'},
-                {'K', 'o', '.', '.', '.', 'B', 'C', '.', 'M', '.', 'O', '.', 'M', '.', '.'},
-                {'M', 'M', 'M', 'M', 'M', 'M', 'M', 'K', '.', 'C', '.', 'O', 'M', '.', '.'},
-                {'.', '.', '.', 'M', '.', 'C', '.', '.', '.', 'M', '.', 'M', 'M', 'O', 'C'},
-                {'C', 'O', '.', 'M', '.', '.', '.', 'B', '.', '.', 'B', 'M', '.', '.', '.'},
-                {'.', '.', '.', '.', '.', 'M', 'M', 'M', '.', '.', '.', 'o', 'K', 'M', '.'}
-        };
-
-        for (int i = 0; i < tableau2D.length; i++) {
-            for (int j = 0; j < tableau2D[i].length; j++) {
-                if (tableau2D[i][j] == 'o' || tableau2D[i][j] == 'O') {
-                    boolean isSuperBoule = (tableau2D[i][j] == 'O'); // Vérifier si c'est une superboule
+        for (int i = 0; i < terrain.getGrille().length; i++) {
+            for (int j = 0; j < terrain.getGrille()[i].length; j++) {
+                if (terrain.getGrille()[i][j] == 'o' || terrain.getGrille()[i][j] == 'O') {
+                    boolean isSuperBoule = (terrain.getGrille()[i][j] == 'O'); // Vérifier si c'est une superboule
 
                     // Créer un objet Boule à la position (i, j) dans la grille
                     Boule boule = new Boule(new Point(i, j), isSuperBoule);
@@ -129,9 +120,9 @@ public class Jeu {
         }
 
         // Parcourir la grille pour créer les objets Fruit
-        for (int i = 0; i < tableau2D.length; i++) {
-            for (int j = 0; j < tableau2D[i].length; j++) {
-                switch (tableau2D[i][j]) {
+        for (int i = 0; i < terrain.getGrille().length; i++) {
+            for (int j = 0; j < terrain.getGrille()[i].length; j++) {
+                switch (terrain.getGrille()[i][j]) {
                     case 'C': // Création d'une cerise
                         Fruit cerise = new Fruit(TypeFruit.CERISE, new Point(i, j));
                         fruits.add(cerise);
@@ -176,9 +167,9 @@ public class Jeu {
 
         while (true) {
             x = 0;
-            for (int i = 0; i < tableau2D.length; i++) {
-                for (int j = 0; j < tableau2D.length; j++) {
-                    System.out.print(tableau2D[i][j]+ "    ");
+            for (int i = 0; i < terrain.getGrille().length; i++) {
+                for (int j = 0; j < terrain.getGrille().length; j++) {
+                    System.out.print(terrain.getGrille()[i][j]+ "    ");
 
                 }
                 System.out.println();
@@ -188,29 +179,29 @@ public class Jeu {
             System.out.println("-------------------------------------------------------------------");
 
 // Reaction des differents déplacements
-            for (int i = 0; i < tableau2D.length; i++) {
-                for (int j = 0; j < tableau2D.length; j++) {
+            for (int i = 0; i < terrain.getGrille().length; i++) {
+                for (int j = 0; j < terrain.getGrille().length; j++) {
 
-                    if(tableau2D[i][j]=='P'){
+                    if(terrain.getGrille()[i][j]=='P'){
                         x = x +1;
                             if (x == 1) {
                                 //DROITE
-                                if (d == Direction.DROITE && j< tableau2D[0].length-1) {
+                                if (d == Direction.DROITE && j< terrain.getGrille()[0].length-1) {
                                     //REACTION A CASE
 
 
-                                    if(tableau2D[i][j+1]=='.'){
-                                        tableau2D[i][j] = '.';
-                                        tableau2D[i][j + 1] = 'P';
-                                    } else if (tableau2D[i][j+1]=='M') {System.out.println("MUR A DROITE");}
+                                    if(terrain.getGrille()[i][j+1]=='.'){
+                                        terrain.getGrille()[i][j] = '.';
+                                        terrain.getGrille()[i][j + 1] = 'P';
+                                    } else if (terrain.getGrille()[i][j+1]=='M') {System.out.println("MUR A DROITE");}
 
 
                                     // Vérifiez si la case contient une boule ou une superboule)
-                                    if (tableau2D[i][j + 1] == 'o' || tableau2D[i][j + 1] == 'O' ){
+                                    if (terrain.getGrille()[i][j + 1] == 'o' || terrain.getGrille()[i][j + 1] == 'O' ){
                                         Boule bouleMange = null;
                                         SuperBoule superbouleMange = null ;
                                         // Initialisez un objet Fruit à null
-                                        switch (tableau2D[i][j + 1]) {
+                                        switch (terrain.getGrille()[i][j + 1]) {
                                             case 'o': // Boule
                                                 // Obtenez la boule correspondant à la cerise à la position (i, j + 1)
                                                 bouleMange = getBouleAtPosition(boules, i, j + 1);
@@ -229,25 +220,25 @@ public class Jeu {
                                             score += bouleMange.getScore();
 
                                             // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                            tableau2D[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                            tableau2D[i][j + 1] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i][j + 1] = 'P'; // Déplacez Pac-Man sur la case suivante
                                         }
                                     else if (superbouleMange != null ) {
                                             // Ajoutez les points du fruit mangé au score
                                             score += superbouleMange.getScore();
 
                                             // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                            tableau2D[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                            tableau2D[i][j + 1] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i][j + 1] = 'P'; // Déplacez Pac-Man sur la case suivante
                                     }
                                 }
 
 
                                     // Vérifiez si la case contient un fruit ('B' pour cerise, 'K' pour kiwi, 'C' pour litchi, etc.)
-                                    if (tableau2D[i][j + 1] == 'B' || tableau2D[i][j + 1] == 'K' || tableau2D[i][j + 1] == 'C') {
+                                    if (terrain.getGrille()[i][j + 1] == 'B' || terrain.getGrille()[i][j + 1] == 'K' || terrain.getGrille()[i][j + 1] == 'C') {
                                         Fruit fruitMange = null; // Initialisez un objet Fruit à null
 
-                                        switch (tableau2D[i][j + 1]) {
+                                        switch (terrain.getGrille()[i][j + 1]) {
                                             case 'B': // Banane
                                                 // Obtenir l'objet Fruit correspondant à la cerise à la position (i, j + 1)
                                                 fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.BANANE);
@@ -271,26 +262,26 @@ public class Jeu {
                                         score += fruitMange.getScore();
 
                                         // Mettre à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        tableau2D[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        tableau2D[i][j + 1] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                        terrain.getGrille()[i][j + 1] = 'P'; // Déplacez Pac-Man sur la case suivante
                                    }}
                                 }
 
                                 //HAUT
                                 else if (d == Direction.HAUT && i> 0) {
                                     //REACTION A CASE
-                                    if(tableau2D[i-1][j]=='.'){
-                                        tableau2D[i][j] = '.';
-                                        tableau2D[i-1][j] = 'P';
-                                    }else if(tableau2D[i-1][j]=='M'){System.out.println("MUR EN HAUT");
+                                    if(terrain.getGrille()[i-1][j]=='.'){
+                                        terrain.getGrille()[i][j] = '.';
+                                        terrain.getGrille()[i-1][j] = 'P';
+                                    }else if(terrain.getGrille()[i-1][j]=='M'){System.out.println("MUR EN HAUT");
 
                                     }
                                     // Vérifiez si la case contient une boule ou une superboule)
-                                    if (tableau2D[i-1][j] == 'o' || tableau2D[i-1][j] == 'O' ){
+                                    if (terrain.getGrille()[i-1][j] == 'o' || terrain.getGrille()[i-1][j] == 'O' ){
                                         Boule bouleMange = null;
                                         SuperBoule superbouleMange = null ;
                                         // Initialisez un objet boule à null
-                                        switch (tableau2D[i-1][j]) {
+                                        switch (terrain.getGrille()[i-1][j]) {
                                             case 'o': // Boule
                                                 // Obtenez la boule correspondant à la cerise à la position (i, j + 1)
                                                 bouleMange = getBouleAtPosition(boules, i, j + 1);
@@ -309,25 +300,25 @@ public class Jeu {
                                             score += bouleMange.getScore();
 
                                             // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                            tableau2D[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                            tableau2D[i-1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i-1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
                                         }
                                         else if (superbouleMange != null ) {
                                             // Ajoutez les points du fruit mangé au score
                                             score += superbouleMange.getScore();
 
                                             // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                            tableau2D[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                            tableau2D[i-1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i-1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
                                         }
                                     }
 
 
                                     // Vérifiez si la case contient un fruit ('B' pour cerise, 'K' pour kiwi, 'C' pour litchi, etc.)
-                                    if (tableau2D[i-1][j] == 'B' || tableau2D[i-1][j] == 'K' || tableau2D[i-1][j] == 'C') {
+                                    if (terrain.getGrille()[i-1][j] == 'B' || terrain.getGrille()[i-1][j] == 'K' || terrain.getGrille()[i-1][j] == 'C') {
                                         Fruit fruitMange = null; // Initialisez un objet Fruit à null
 
-                                        switch (tableau2D[i-1][j]) {
+                                        switch (terrain.getGrille()[i-1][j]) {
                                             case 'B': // Banane
                                                 // Obtenir l'objet Fruit correspondant à la cerise à la position (i, j + 1)
                                                 fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.BANANE);
@@ -351,25 +342,25 @@ public class Jeu {
                                             score += fruitMange.getScore();
 
                                             // Mettre à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                            tableau2D[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                            tableau2D[i-1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i-1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
                                         }}
                                 }
 
                                 //GAUCHE
                                 else if (d == Direction.GAUCHE && j> 0) {
                                     //REACTION A CASE
-                                    if(tableau2D[i][j-1]=='.') {
-                                        tableau2D[i][j] = '.';
-                                        tableau2D[i][j - 1] = 'P';
-                                    }else if(tableau2D[i][j-1]=='M') {System.out.println("MUR A GAUCHE");}
+                                    if(terrain.getGrille()[i][j-1]=='.') {
+                                        terrain.getGrille()[i][j] = '.';
+                                        terrain.getGrille()[i][j - 1] = 'P';
+                                    }else if(terrain.getGrille()[i][j-1]=='M') {System.out.println("MUR A GAUCHE");}
 
                                 // Vérifiez si la case contient une boule ou une superboule)
-                                if (tableau2D[i][j-1]== 'o' || tableau2D[i][j-1] == 'O' ){
+                                if (terrain.getGrille()[i][j-1]== 'o' || terrain.getGrille()[i][j-1] == 'O' ){
                                     Boule bouleMange = null;
                                     SuperBoule superbouleMange = null ;
                                     // Initialisez un objet boule à null
-                                    switch (tableau2D[i][j-1]) {
+                                    switch (terrain.getGrille()[i][j-1]) {
                                         case 'o': // Boule
                                             // Obtenez la boule correspondant à la cerise à la position (i, j + 1)
                                             bouleMange = getBouleAtPosition(boules, i, j + 1);
@@ -388,25 +379,25 @@ public class Jeu {
                                         score += bouleMange.getScore();
 
                                         // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        tableau2D[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        tableau2D[i][j-1] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                        terrain.getGrille()[i][j-1] = 'P'; // Déplacez Pac-Man sur la case suivante
                                     }
                                     else if (superbouleMange != null ) {
                                         // Ajoutez les points du fruit mangé au score
                                         score += superbouleMange.getScore();
 
                                         // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        tableau2D[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        tableau2D[i][j-1] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                        terrain.getGrille()[i][j-1] = 'P'; // Déplacez Pac-Man sur la case suivante
                                     }
                                 }
 
 
                                 // Vérifiez si la case contient un fruit ('B' pour cerise, 'K' pour kiwi, 'C' pour litchi, etc.)
-                                if (tableau2D[i][j-1] == 'B' || tableau2D[i][j-1] == 'K' || tableau2D[i][j-1] == 'C') {
+                                if (terrain.getGrille()[i][j-1] == 'B' || terrain.getGrille()[i][j-1] == 'K' || terrain.getGrille()[i][j-1] == 'C') {
                                     Fruit fruitMange = null; // Initialisez un objet Fruit à null
 
-                                    switch (tableau2D[i][j-1]) {
+                                    switch (terrain.getGrille()[i][j-1]) {
                                         case 'B': // Banane
                                             // Obtenir l'objet Fruit correspondant à la cerise à la position (i, j + 1)
                                             fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.BANANE);
@@ -430,25 +421,25 @@ public class Jeu {
                                         score += fruitMange.getScore();
 
                                         // Mettre à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        tableau2D[i][j] = '.';
-                                        tableau2D[i][j-1] = 'P';
+                                        terrain.getGrille()[i][j] = '.';
+                                        terrain.getGrille()[i][j-1] = 'P';
                                     }
                                 }
                                 }
                                 //BAS
-                                else if (d == Direction.BAS && i< tableau2D.length-1) {
+                                else if (d == Direction.BAS && i< terrain.getGrille().length-1) {
                                     //REACTION A CASE
-                                    if(tableau2D[i+1][j]=='.') {
-                                        tableau2D[i][j] = '.';
-                                        tableau2D[i + 1][j] = 'P';
-                                    }else if(tableau2D[i+1][j]=='M'){System.out.println("MUR EN BAS");}
+                                    if(terrain.getGrille()[i+1][j]=='.') {
+                                        terrain.getGrille()[i][j] = '.';
+                                        terrain.getGrille()[i + 1][j] = 'P';
+                                    }else if(terrain.getGrille()[i+1][j]=='M'){System.out.println("MUR EN BAS");}
 
                                     // Vérifiez si la case contient une boule ou une superboule)
-                                        if (tableau2D[i+1][j]== 'o' || tableau2D[i+1][j] == 'O' ){
+                                        if (terrain.getGrille()[i+1][j]== 'o' || terrain.getGrille()[i+1][j] == 'O' ){
                                             Boule bouleMange = null;
                                             SuperBoule superbouleMange = null ;
                                             // Initialisez un objet boule à null
-                                            switch (tableau2D[i+1][j]) {
+                                            switch (terrain.getGrille()[i+1][j]) {
                                                 case 'o': // Boule
                                                     // Obtenez la boule correspondant à la cerise à la position (i, j + 1)
                                                     bouleMange = getBouleAtPosition(boules, i, j + 1);
@@ -467,25 +458,25 @@ public class Jeu {
                                                 score += bouleMange.getScore();
 
                                                 // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                                tableau2D[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                                tableau2D[i+1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                                terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                                terrain.getGrille()[i+1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
                                             }
                                             else if (superbouleMange != null ) {
                                                 // Ajoutez les points du fruit mangé au score
                                                 score += superbouleMange.getScore();
 
                                                 // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                                tableau2D[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                                tableau2D[i+1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                                terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                                terrain.getGrille()[i+1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
                                             }
                                         }
 
 
                                         // Vérifiez si la case contient un fruit ('B' pour cerise, 'K' pour kiwi, 'C' pour litchi, etc.)
-                                        if (tableau2D[i+1][j] == 'B' || tableau2D[i+1][j] == 'K' || tableau2D[i+1][j] == 'C') {
+                                        if (terrain.getGrille()[i+1][j] == 'B' || terrain.getGrille()[i+1][j] == 'K' || terrain.getGrille()[i+1][j] == 'C') {
                                             Fruit fruitMange = null; // Initialisez un objet Fruit à null
 
-                                            switch (tableau2D[i+1][j]) {
+                                            switch (terrain.getGrille()[i+1][j]) {
                                                 case 'B': // Banane
                                                     // Obtenir l'objet Fruit correspondant à la cerise à la position (i, j + 1)
                                                     fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.BANANE);
@@ -509,8 +500,8 @@ public class Jeu {
                                                 score += fruitMange.getScore();
 
                                                 // Mettre à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                                tableau2D[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                                tableau2D[i+1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                                terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                                terrain.getGrille()[i+1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
                                             }
 
                                          }

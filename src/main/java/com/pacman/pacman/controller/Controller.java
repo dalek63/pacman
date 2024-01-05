@@ -15,6 +15,8 @@ public class Controller {
         // Logique de mise à jour de la grille avec la nouvelle direction
         return "Grid mise à jour avec la direction : " + direction.getValue();
     }
+
+
 }
 /*
 import org.springframework.beans.factory.annotation.Autowired;

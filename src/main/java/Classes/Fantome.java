@@ -32,9 +32,8 @@ public class Fantome extends Personnage {
         // Comportement de devenir mangé par Pac-Man
     }
 
-    @Override
-    public void deplacer() {
 
+    public void deplacer() {
     }
 
     @Override

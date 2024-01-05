@@ -34,6 +34,7 @@ public class Fantome extends Personnage {
 
     @Override
     public void deplacer() {
+
     }
 
     @Override

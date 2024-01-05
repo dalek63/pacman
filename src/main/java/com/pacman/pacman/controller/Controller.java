@@ -1,6 +1,7 @@
 package com.pacman.pacman.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +16,7 @@ public class Controller {
     private final SimpMessagingTemplate messagingTemplate;
 
     @Autowired
-    public Controller(SimpMessagingTemplate messagingTemplate) {
+    public Controller(@Lazy SimpMessagingTemplate messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
     }
 

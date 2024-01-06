@@ -41,6 +41,7 @@ public class Fruit {
 
             case KIWI :
                 points = 300;
+
                 break;
             default:
                 points = 0; // Par défaut, aucun point

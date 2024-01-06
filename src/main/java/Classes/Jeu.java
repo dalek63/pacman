@@ -10,6 +10,9 @@ public class Jeu {
     private PacMan pacMan;
     private List<Fantome> fantomes;
     private int score;
+    private boolean enCours;
+
+
 
     private int niveauActuel;
 
@@ -17,11 +20,10 @@ public class Jeu {
         this.terrain = terrain;
         this.pacMan = pacMan;
         this.fantomes = new ArrayList<>();
-        this.score = 0;
         this.niveauActuel = 1;
-
-
         this.score = 0;
+        this.enCours = true;
+
     }
 
     public Terrain getTerrain() {
@@ -39,6 +41,8 @@ public class Jeu {
     public void setPacMan(PacMan pacMan) {
         this.pacMan = pacMan;
     }
+
+
 
     public List<Fantome> getFantomes() {
         return fantomes;
@@ -118,34 +122,12 @@ public class Jeu {
 
     private void preparerNouveauNiveau() {
         niveauActuel++;
-        terrain.changerNiveau(niveauActuel); // Assurez-vous que la méthode `changerNiveau` existe dans la classe Terrain
+        terrain.changerNiveau(niveauActuel);
         // Réinitialiser les positions de Pac-Man et des fantômes, etc.
         System.out.println("Bravo, Niveau suivant ! Niveau " + niveauActuel);
         demarrerJeu();
     }
-
-    public void verifierEtMettreAJourNiveau() {
-        if (toutesLesBoulesMangees()) {
-            System.out.println("Bravo, Niveau suivant !");
-            preparerNouveauNiveau();
-        }
-    }
-
-    public void demarrerJeu() {
-/*
-        String[][] tableau2D = new String[11][11];
-        int x;
-
-        for (int i = 0; i < tableau2D.length; i++) {
-            for (int j = 0; j < tableau2D.length; j++) {
-                tableau2D[i][j]= "X";
-            }
-        }
-
-        tableau2D[0][4]="P";
-*/
-        afficherTerrain();
-
+    private void initialiserJeu() {
         for (int i = 0; i < terrain.getGrille().length; i++) {
             for (int j = 0; j < terrain.getGrille()[i].length; j++) {
                 if (terrain.getGrille()[i][j] == 'o' || terrain.getGrille()[i][j] == 'O') {
@@ -183,7 +165,17 @@ public class Jeu {
                 }
             }
         }
+    }
 
+    private void effectuerMouvementPacMan(Direction d) {
+        float x = pacMan.getPosition().getPositionX();
+        float y = pacMan.getPosition().getPositionY();
+
+    }
+    public void demarrerJeu() {
+
+        afficherTerrain();
+        initialiserJeu();
 
 
 /*
@@ -200,21 +192,24 @@ public class Jeu {
 
 
  */
-     //   int score = 0;
+
         Direction d = Direction.DROITE;
         Direction df1 = Direction.DROITE;
         int x;
         int y;
 
 
-        while (true) {
-
+        while (enCours) {
+            x = 0;
+            y = 0;
+            System.out.println(" Votre score : "+ score);
+            System.out.println("-------------------------------------------------------------------");
+/*
 
             //Affichage de direction de pacman et fantome ( debuggage )
             System.out.println(d);
             System.out.println(df1);
-            x = 0;
-            y = 0;
+*/
             for (int i = 0; i < terrain.getGrille().length; i++) {
                 for (int j = 0; j < terrain.getGrille().length; j++) {
                     System.out.print(terrain.getGrille()[i][j] + "    ");
@@ -223,407 +218,433 @@ public class Jeu {
                 System.out.println();
 
             }
-            System.out.println(" Votre score : "+ score);
-            System.out.println("-------------------------------------------------------------------");
+
+
 
 // Reaction des differents déplacements
             for (int i = 0; i < terrain.getGrille().length; i++) {
                 for (int j = 0; j < terrain.getGrille().length; j++) {
+                    switch (terrain.getGrille()[i][j]) {
+                        case 'P':
+                            x = x + 1;
+                            if (x == 1) {
+                                //DROITE
+                                if (d == Direction.DROITE && j < terrain.getGrille()[0].length - 1) {
+                                    //REACTION A CASE
 
-                    if (terrain.getGrille()[i][j] == 'P') {
-                        x = x + 1;
-                        if (x == 1) {
-                            //DROITE
-                            if (d == Direction.DROITE && j < terrain.getGrille()[0].length - 1) {
-                                //REACTION A CASE
-
-                                if (terrain.getGrille()[i][j + 1] == '.') {
-                                    terrain.getGrille()[i][j] = '.';
-                                    terrain.getGrille()[i][j + 1] = 'P';
-                                } else if (terrain.getGrille()[i][j + 1] == 'M') {
-                                    System.out.println("MUR A DROITE");
-                                } else if (terrain.getGrille()[i][j + 1] == 'F') {
-                                    System.out.println("PERDU");
-                                }
-
-
-                                // Vérifiez si la case contient une boule ou une superboule)
-                                if (terrain.getGrille()[i][j + 1] == 'o' || terrain.getGrille()[i][j + 1] == 'O') {
-                                    Boule bouleMange = null;
-                                    SuperBoule superbouleMange = null;
-                                    // Initialisez un objet Fruit à null
-                                    switch (terrain.getGrille()[i][j + 1]) {
-                                        case 'o': // Boule
-                                            // Obtenez la boule correspondant à la cerise à la position (i, j + 1)
-                                            bouleMange = getBouleAtPosition(boules, i, j + 1);
-                                            break;
-                                        case 'O': //
-                                            // Obtenir la superboule correspendante à la position (i, j + 1)
-                                            superbouleMange = getSuperBouleAtPosition(superBoules, i, j + 1);
-                                            break;
-
-                                        default:
-                                            break;
-                                    }
-
-                                    if (bouleMange != null) {
-                                        // Ajoutez les points du fruit mangé au score
-                                        score += bouleMange.getScore();
-
-                                        // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        terrain.getGrille()[i][j + 1] = 'P'; // Déplacez Pac-Man sur la case suivante
-                                    } else if (superbouleMange != null) {
-                                        // Ajoutez les points du fruit mangé au score
-                                        score += superbouleMange.getScore();
-
-                                        // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        terrain.getGrille()[i][j + 1] = 'P'; // Déplacez Pac-Man sur la case suivante
-                                    }
-                                }
-
-
-                                // Vérifiez si la case contient un fruit ('B' pour cerise, 'K' pour kiwi, 'C' pour litchi, etc.)
-                                if (terrain.getGrille()[i][j + 1] == 'B' || terrain.getGrille()[i][j + 1] == 'K' || terrain.getGrille()[i][j + 1] == 'C') {
-                                    Fruit fruitMange = null; // Initialisez un objet Fruit à null
-
-                                    switch (terrain.getGrille()[i][j + 1]) {
-                                        case 'B': // Banane
-                                            // Obtenir l'objet Fruit correspondant à la cerise à la position (i, j + 1)
-                                            fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.BANANE);
-                                            break;
-                                        case 'K': // Kiwi
-                                            // Obtenir l'objet Fruit correspondant au kiwi à la position (i, j + 1)
-                                            fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.KIWI);
-                                            break;
-                                        case 'C': // Cerise
-                                            // Obtenir l'objet Fruit correspondant au litchi à la position (i, j + 1)
-                                            fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.CERISE);
-                                            break;
-
-                                        default:
-                                            break;
+                                    if (terrain.getGrille()[i][j + 1] == '.') {
+                                        terrain.getGrille()[i][j] = '.';
+                                        terrain.getGrille()[i][j + 1] = 'P';
+                                    } else if (terrain.getGrille()[i][j + 1] == 'M') {
+                                        System.out.println("MUR A DROITE");
+                                    } else if (terrain.getGrille()[i][j + 1] == 'F') {
+                                        pacMan.perdreVies();
+                                        if (!pacMan.estVivant()) {
+                                            System.out.println("PERDU");
+                                            terminerJeu();
+                                        } else {
+                                            System.out.println("Il vous reste : " + pacMan.getVies() + " vies. ");
+                                        }
+                                        break;
                                     }
 
 
-                                    if (fruitMange != null) {
-                                        // Ajout des points du fruit mangé au score
-                                        score += fruitMange.getScore();
+                                    // Vérifiez si la case contient une boule ou une superboule)
+                                    if (terrain.getGrille()[i][j + 1] == 'o' || terrain.getGrille()[i][j + 1] == 'O') {
+                                        Boule bouleMange = null;
+                                        SuperBoule superbouleMange = null;
+                                        // Initialisez un objet Fruit à null
+                                        switch (terrain.getGrille()[i][j + 1]) {
+                                            case 'o': // Boule
+                                                // Obtenez la boule correspondant à la cerise à la position (i, j + 1)
+                                                bouleMange = getBouleAtPosition(boules, i, j + 1);
+                                                break;
+                                            case 'O': //
+                                                // Obtenir la superboule correspendante à la position (i, j + 1)
+                                                superbouleMange = getSuperBouleAtPosition(superBoules, i, j + 1);
+                                                break;
 
-                                        // Mettre à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        terrain.getGrille()[i][j + 1] = 'P'; // Déplacez Pac-Man sur la case suivante
-                                    }
-                                }
-                            }
+                                            default:
+                                                break;
+                                        }
 
-                            //HAUT
-                            else if (d == Direction.HAUT && i > 0) {
-                                //REACTION A CASE
-                                if (terrain.getGrille()[i - 1][j] == '.') {
-                                    terrain.getGrille()[i][j] = '.';
-                                    terrain.getGrille()[i - 1][j] = 'P';
-                                } else if (terrain.getGrille()[i - 1][j] == 'M') {
-                                    System.out.println("MUR EN HAUT");
-                                } else if (terrain.getGrille()[i - 1][j] == 'F') {
-                                    System.out.println("PERDU");
-                                    break;
+                                        if (bouleMange != null) {
+                                            // Ajoutez les points du fruit mangé au score
+                                            score += bouleMange.getScore();
 
-                                }
-                                // Vérifiez si la case contient une boule ou une superboule)
-                                if (terrain.getGrille()[i - 1][j] == 'o' || terrain.getGrille()[i - 1][j] == 'O') {
-                                    Boule bouleMange = null;
-                                    SuperBoule superbouleMange = null;
-                                    // Initialisez un objet boule à null
-                                    switch (terrain.getGrille()[i - 1][j]) {
-                                        case 'o': // Boule
-                                            // Obtenez la boule correspondant à la cerise à la position (i, j + 1)
-                                            bouleMange = getBouleAtPosition(boules, i, j + 1);
-                                            break;
-                                        case 'O': //
-                                            // Obtenir la superboule correspendante à la position (i, j + 1)
-                                            superbouleMange = getSuperBouleAtPosition(superBoules, i, j + 1);
-                                            break;
+                                            // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i][j + 1] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        } else if (superbouleMange != null) {
+                                            // Ajoutez les points du fruit mangé au score
+                                            score += superbouleMange.getScore();
 
-                                        default:
-                                            break;
+                                            // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i][j + 1] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        }
                                     }
 
-                                    if (bouleMange != null) {
-                                        // Ajoutez les points du fruit mangé au score
-                                        score += bouleMange.getScore();
 
-                                        // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        terrain.getGrille()[i - 1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
-                                    } else if (superbouleMange != null) {
-                                        // Ajoutez les points du fruit mangé au score
-                                        score += superbouleMange.getScore();
+                                    // Vérifiez si la case contient un fruit ('B' pour cerise, 'K' pour kiwi, 'C' pour litchi, etc.)
+                                    if (terrain.getGrille()[i][j + 1] == 'B' || terrain.getGrille()[i][j + 1] == 'K' || terrain.getGrille()[i][j + 1] == 'C') {
+                                        Fruit fruitMange = null; // Initialisez un objet Fruit à null
 
-                                        // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        terrain.getGrille()[i - 1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        switch (terrain.getGrille()[i][j + 1]) {
+                                            case 'B': // Banane
+                                                // Obtenir l'objet Fruit correspondant à la cerise à la position (i, j + 1)
+                                                fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.BANANE);
+                                                break;
+                                            case 'K': // Kiwi
+                                                // Obtenir l'objet Fruit correspondant au kiwi à la position (i, j + 1)
+                                                fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.KIWI);
+                                                break;
+                                            case 'C': // Cerise
+                                                // Obtenir l'objet Fruit correspondant au litchi à la position (i, j + 1)
+                                                fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.CERISE);
+                                                break;
+
+                                            default:
+                                                break;
+                                        }
+
+
+                                        if (fruitMange != null) {
+                                            // Ajout des points du fruit mangé au score
+                                            score += fruitMange.getScore();
+
+                                            // Mettre à jour la grille et la position de Pac-Man après avoir mangé le fruit
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i][j + 1] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        }
                                     }
                                 }
 
+                                //HAUT
+                                else if (d == Direction.HAUT && i > 0) {
+                                    //REACTION A CASE
+                                    if (terrain.getGrille()[i - 1][j] == '.') {
+                                        terrain.getGrille()[i][j] = '.';
+                                        terrain.getGrille()[i - 1][j] = 'P';
+                                    } else if (terrain.getGrille()[i - 1][j] == 'M') {
+                                        System.out.println("MUR EN HAUT");
+                                    } else if (terrain.getGrille()[i - 1][j] == 'F') {
+                                        pacMan.perdreVies();
+                                        if (!pacMan.estVivant()) {
+                                            System.out.println("PERDU");
+                                            terminerJeu();
+                                        } else {
+                                            System.out.println("Il vous reste : " + pacMan.getVies() + "vies.");
+                                        }
+                                        break;
+                                    }
+                                    // Vérifiez si la case contient une boule ou une superboule)
+                                    if (terrain.getGrille()[i - 1][j] == 'o' || terrain.getGrille()[i - 1][j] == 'O') {
+                                        Boule bouleMange = null;
+                                        SuperBoule superbouleMange = null;
+                                        // Initialisez un objet boule à null
+                                        switch (terrain.getGrille()[i - 1][j]) {
+                                            case 'o': // Boule
+                                                // Obtenez la boule correspondant à la cerise à la position (i, j + 1)
+                                                bouleMange = getBouleAtPosition(boules, i, j + 1);
+                                                break;
+                                            case 'O': //
+                                                // Obtenir la superboule correspendante à la position (i, j + 1)
+                                                superbouleMange = getSuperBouleAtPosition(superBoules, i, j + 1);
+                                                break;
 
-                                // Vérifiez si la case contient un fruit ('B' pour cerise, 'K' pour kiwi, 'C' pour litchi, etc.)
-                                if (terrain.getGrille()[i - 1][j] == 'B' || terrain.getGrille()[i - 1][j] == 'K' || terrain.getGrille()[i - 1][j] == 'C') {
-                                    Fruit fruitMange = null; // Initialisez un objet Fruit à null
+                                            default:
+                                                break;
+                                        }
 
-                                    switch (terrain.getGrille()[i - 1][j]) {
-                                        case 'B': // Banane
-                                            // Obtenir l'objet Fruit correspondant à la cerise à la position (i, j + 1)
-                                            fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.BANANE);
-                                            break;
-                                        case 'K': // Kiwi
-                                            // Obtenir l'objet Fruit correspondant au kiwi à la position (i, j + 1)
-                                            fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.KIWI);
-                                            break;
-                                        case 'C': // Cerise
-                                            // Obtenir l'objet Fruit correspondant au litchi à la position (i, j + 1)
-                                            fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.CERISE);
-                                            break;
+                                        if (bouleMange != null) {
+                                            // Ajoutez les points du fruit mangé au score
+                                            score += bouleMange.getScore();
 
-                                        default:
-                                            break;
+                                            // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i - 1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        } else if (superbouleMange != null) {
+                                            // Ajoutez les points du fruit mangé au score
+                                            score += superbouleMange.getScore();
+
+                                            // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i - 1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        }
                                     }
 
 
-                                    if (fruitMange != null) {
-                                        // Ajout des points du fruit mangé au score
-                                        score += fruitMange.getScore();
+                                    // Vérifiez si la case contient un fruit ('B' pour cerise, 'K' pour kiwi, 'C' pour litchi, etc.)
+                                    if (terrain.getGrille()[i - 1][j] == 'B' || terrain.getGrille()[i - 1][j] == 'K' || terrain.getGrille()[i - 1][j] == 'C') {
+                                        Fruit fruitMange = null; // Initialisez un objet Fruit à null
 
-                                        // Mettre à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        terrain.getGrille()[i - 1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        switch (terrain.getGrille()[i - 1][j]) {
+                                            case 'B': // Banane
+                                                // Obtenir l'objet Fruit correspondant à la cerise à la position (i, j + 1)
+                                                fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.BANANE);
+                                                break;
+                                            case 'K': // Kiwi
+                                                // Obtenir l'objet Fruit correspondant au kiwi à la position (i, j + 1)
+                                                fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.KIWI);
+                                                break;
+                                            case 'C': // Cerise
+                                                // Obtenir l'objet Fruit correspondant au litchi à la position (i, j + 1)
+                                                fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.CERISE);
+                                                break;
+
+                                            default:
+                                                break;
+                                        }
+
+
+                                        if (fruitMange != null) {
+                                            // Ajout des points du fruit mangé au score
+                                            score += fruitMange.getScore();
+
+                                            // Mettre à jour la grille et la position de Pac-Man après avoir mangé le fruit
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i - 1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        }
                                     }
                                 }
-                            }
 
-                            //GAUCHE
-                            else if (d == Direction.GAUCHE && j > 0) {
-                                //REACTION A CASE
-                                if (terrain.getGrille()[i][j - 1] == '.') {
-                                    terrain.getGrille()[i][j] = '.';
-                                    terrain.getGrille()[i][j - 1] = 'P';
-                                } else if (terrain.getGrille()[i][j - 1] == 'M') {
-                                    System.out.println("MUR A GAUCHE");
-                                } else if (terrain.getGrille()[i][j - 1] == 'F') {
-                                    System.out.println("PERDU");
-                                    break;
-                                }
-                                // Vérifiez si la case contient une boule ou une superboule)
-                                if (terrain.getGrille()[i][j - 1] == 'o' || terrain.getGrille()[i][j - 1] == 'O') {
-                                    Boule bouleMange = null;
-                                    SuperBoule superbouleMange = null;
-                                    // Initialisez un objet boule à null
-                                    switch (terrain.getGrille()[i][j - 1]) {
-                                        case 'o': // Boule
-                                            // Obtenez la boule correspondant à la cerise à la position (i, j + 1)
-                                            bouleMange = getBouleAtPosition(boules, i, j + 1);
-                                            break;
-                                        case 'O': //
-                                            // Obtenir la superboule correspendante à la position (i, j + 1)
-                                            superbouleMange = getSuperBouleAtPosition(superBoules, i, j + 1);
-                                            break;
-
-                                        default:
-                                            break;
-                                    }
-
-                                    if (bouleMange != null) {
-                                        // Ajoutez les points du fruit mangé au score
-                                        score += bouleMange.getScore();
-
-                                        // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        terrain.getGrille()[i][j - 1] = 'P'; // Déplacez Pac-Man sur la case suivante
-                                    } else if (superbouleMange != null) {
-                                        // Ajoutez les points du fruit mangé au score
-                                        score += superbouleMange.getScore();
-
-                                        // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        terrain.getGrille()[i][j - 1] = 'P'; // Déplacez Pac-Man sur la case suivante
-                                    }
-                                }
-
-
-                                // Vérifiez si la case contient un fruit ('B' pour cerise, 'K' pour kiwi, 'C' pour litchi, etc.)
-                                if (terrain.getGrille()[i][j - 1] == 'B' || terrain.getGrille()[i][j - 1] == 'K' || terrain.getGrille()[i][j - 1] == 'C') {
-                                    Fruit fruitMange = null; // Initialisez un objet Fruit à null
-
-                                    switch (terrain.getGrille()[i][j - 1]) {
-                                        case 'B': // Banane
-                                            // Obtenir l'objet Fruit correspondant à la cerise à la position (i, j + 1)
-                                            fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.BANANE);
-                                            break;
-                                        case 'K': // Kiwi
-                                            // Obtenir l'objet Fruit correspondant au kiwi à la position (i, j + 1)
-                                            fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.KIWI);
-                                            break;
-                                        case 'C': // Cerise
-                                            // Obtenir l'objet Fruit correspondant au litchi à la position (i, j + 1)
-                                            fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.CERISE);
-                                            break;
-
-                                        default:
-                                            break;
-                                    }
-
-
-                                    if (fruitMange != null) {
-                                        // Ajout des points du fruit mangé au score
-                                        score += fruitMange.getScore();
-
-                                        // Mettre à jour la grille et la position de Pac-Man après avoir mangé le fruit
+                                //GAUCHE
+                                else if (d == Direction.GAUCHE && j > 0) {
+                                    //REACTION A CASE
+                                    if (terrain.getGrille()[i][j - 1] == '.') {
                                         terrain.getGrille()[i][j] = '.';
                                         terrain.getGrille()[i][j - 1] = 'P';
+                                    } else if (terrain.getGrille()[i][j - 1] == 'M') {
+                                        System.out.println("MUR A GAUCHE");
+                                    } else if (terrain.getGrille()[i][j - 1] == 'F') {
+                                        pacMan.perdreVies();
+                                        if (!pacMan.estVivant()) {
+                                            System.out.println("PERDU");
+                                            terminerJeu();
+                                        } else {
+                                            System.out.println("Il vous reste : " + pacMan.getVies() + "vies.");
+                                        }
+                                        break;
                                     }
-                                }
-                            }
-                            //BAS
-                            else if (d == Direction.BAS && i < terrain.getGrille().length - 1) {
-                                //REACTION A CASE
-                                if (terrain.getGrille()[i + 1][j] == '.') {
-                                    terrain.getGrille()[i][j] = '.';
-                                    terrain.getGrille()[i + 1][j] = 'P';
-                                } else if (terrain.getGrille()[i + 1][j] == 'M') {
-                                    System.out.println("MUR EN BAS");
-                                } else if (terrain.getGrille()[i + 1][j] == 'F') {
-                                    System.out.println("PERDU");
-                                }
+                                    // Vérifiez si la case contient une boule ou une superboule)
+                                    if (terrain.getGrille()[i][j - 1] == 'o' || terrain.getGrille()[i][j - 1] == 'O') {
+                                        Boule bouleMange = null;
+                                        SuperBoule superbouleMange = null;
+                                        // Initialisez un objet boule à null
+                                        switch (terrain.getGrille()[i][j - 1]) {
+                                            case 'o': // Boule
+                                                // Obtenez la boule correspondant à la cerise à la position (i, j + 1)
+                                                bouleMange = getBouleAtPosition(boules, i, j + 1);
+                                                break;
+                                            case 'O': //
+                                                // Obtenir la superboule correspendante à la position (i, j + 1)
+                                                superbouleMange = getSuperBouleAtPosition(superBoules, i, j + 1);
+                                                break;
 
-                                // Vérifiez si la case contient une boule ou une superboule)
-                                if (terrain.getGrille()[i + 1][j] == 'o' || terrain.getGrille()[i + 1][j] == 'O') {
-                                    Boule bouleMange = null;
-                                    SuperBoule superbouleMange = null;
-                                    // Initialisez un objet boule à null
-                                    switch (terrain.getGrille()[i + 1][j]) {
-                                        case 'o': // Boule
-                                            // Obtenez la boule correspondant à la cerise à la position (i, j + 1)
-                                            bouleMange = getBouleAtPosition(boules, i, j + 1);
-                                            break;
-                                        case 'O': //
-                                            // Obtenir la superboule correspendante à la position (i, j + 1)
-                                            superbouleMange = getSuperBouleAtPosition(superBoules, i, j + 1);
-                                            break;
+                                            default:
+                                                break;
+                                        }
 
-                                        default:
-                                            break;
-                                    }
+                                        if (bouleMange != null) {
+                                            // Ajoutez les points du fruit mangé au score
+                                            score += bouleMange.getScore();
 
-                                    if (bouleMange != null) {
-                                        // Ajoutez les points du fruit mangé au score
-                                        score += bouleMange.getScore();
+                                            // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i][j - 1] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        } else if (superbouleMange != null) {
+                                            // Ajoutez les points du fruit mangé au score
+                                            score += superbouleMange.getScore();
 
-                                        // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        terrain.getGrille()[i + 1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
-                                    } else if (superbouleMange != null) {
-                                        // Ajoutez les points du fruit mangé au score
-                                        score += superbouleMange.getScore();
-
-                                        // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        terrain.getGrille()[i + 1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
-                                    }
-                                }
-
-
-                                // Vérifiez si la case contient un fruit ('B' pour cerise, 'K' pour kiwi, 'C' pour litchi, etc.)
-                                if (terrain.getGrille()[i + 1][j] == 'B' || terrain.getGrille()[i + 1][j] == 'K' || terrain.getGrille()[i + 1][j] == 'C') {
-                                    Fruit fruitMange = null; // Initialisez un objet Fruit à null
-
-                                    switch (terrain.getGrille()[i + 1][j]) {
-                                        case 'B': // Banane
-                                            // Obtenir l'objet Fruit correspondant à la cerise à la position (i, j + 1)
-                                            fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.BANANE);
-                                            break;
-                                        case 'K': // Kiwi
-                                            // Obtenir l'objet Fruit correspondant au kiwi à la position (i, j + 1)
-                                            fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.KIWI);
-                                            break;
-                                        case 'C': // Cerise
-                                            // Obtenir l'objet Fruit correspondant au litchi à la position (i, j + 1)
-                                            fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.CERISE);
-                                            break;
-
-                                        default:
-                                            break;
+                                            // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i][j - 1] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        }
                                     }
 
 
-                                    if (fruitMange != null) {
-                                        // Ajout des points du fruit mangé au score
-                                        score += fruitMange.getScore();
+                                    // Vérifiez si la case contient un fruit ('B' pour cerise, 'K' pour kiwi, 'C' pour litchi, etc.)
+                                    if (terrain.getGrille()[i][j - 1] == 'B' || terrain.getGrille()[i][j - 1] == 'K' || terrain.getGrille()[i][j - 1] == 'C') {
+                                        Fruit fruitMange = null; // Initialisez un objet Fruit à null
 
-                                        // Mettre à jour la grille et la position de Pac-Man après avoir mangé le fruit
-                                        terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
-                                        terrain.getGrille()[i + 1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        switch (terrain.getGrille()[i][j - 1]) {
+                                            case 'B': // Banane
+                                                // Obtenir l'objet Fruit correspondant à la cerise à la position (i, j + 1)
+                                                fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.BANANE);
+                                                break;
+                                            case 'K': // Kiwi
+                                                // Obtenir l'objet Fruit correspondant au kiwi à la position (i, j + 1)
+                                                fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.KIWI);
+                                                break;
+                                            case 'C': // Cerise
+                                                // Obtenir l'objet Fruit correspondant au litchi à la position (i, j + 1)
+                                                fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.CERISE);
+                                                break;
+
+                                            default:
+                                                break;
+                                        }
+
+
+                                        if (fruitMange != null) {
+                                            // Ajout des points du fruit mangé au score
+                                            score += fruitMange.getScore();
+
+                                            // Mettre à jour la grille et la position de Pac-Man après avoir mangé le fruit
+                                            terrain.getGrille()[i][j] = '.';
+                                            terrain.getGrille()[i][j - 1] = 'P';
+                                        }
                                     }
                                 }
-                            }
+                                //BAS
+                                else if (d == Direction.BAS && i < terrain.getGrille().length - 1) {
+                                    //REACTION A CASE
+                                    if (terrain.getGrille()[i + 1][j] == '.') {
+                                        terrain.getGrille()[i][j] = '.';
+                                        terrain.getGrille()[i + 1][j] = 'P';
+                                    } else if (terrain.getGrille()[i + 1][j] == 'M') {
+                                        System.out.println("MUR EN BAS");
+                                    } else if (terrain.getGrille()[i + 1][j] == 'F') {
+                                        pacMan.perdreVies();
+                                        if (!pacMan.estVivant()) {
+                                            System.out.println("PERDU");
+                                            terminerJeu();
+                                        } else {
+                                            System.out.println("Il vous reste : " + pacMan.getVies() + "vies.");
+                                        }
+                                        break;
+                                    }
+                                    // Vérifiez si la case contient une boule ou une superboule)
+                                    if (terrain.getGrille()[i + 1][j] == 'o' || terrain.getGrille()[i + 1][j] == 'O') {
+                                        Boule bouleMange = null;
+                                        SuperBoule superbouleMange = null;
+                                        // Initialisez un objet boule à null
+                                        switch (terrain.getGrille()[i + 1][j]) {
+                                            case 'o': // Boule
+                                                // Obtenez la boule correspondant à la cerise à la position (i, j + 1)
+                                                bouleMange = getBouleAtPosition(boules, i, j + 1);
+                                                break;
+                                            case 'O': //
+                                                // Obtenir la superboule correspendante à la position (i, j + 1)
+                                                superbouleMange = getSuperBouleAtPosition(superBoules, i, j + 1);
+                                                break;
 
-                        }if (toutesLesBoulesMangees()) {
-                            preparerNouveauNiveau();
-                           // return ;
-                        }
-                    } else if (terrain.getGrille()[i][j] == 'F') {
-                        y = y + 1;
-                        if (y == 1) {
+                                            default:
+                                                break;
+                                        }
 
-                            //DROITE
-                            if (df1 == Direction.DROITE && j < terrain.getGrille()[0].length - 1) {
-                                //REACTION A CASE
-                                if (terrain.getGrille()[i][j + 1] == '.') {
-                                    terrain.getGrille()[i][j] = '.';
-                                    terrain.getGrille()[i][j + 1] = 'F';
-                                } else if (terrain.getGrille()[i][j + 1] == 'M') {
-                                    System.out.println("MUR A DROITE");
+                                        if (bouleMange != null) {
+                                            // Ajoutez les points du fruit mangé au score
+                                            score += bouleMange.getScore();
+
+                                            // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i + 1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        } else if (superbouleMange != null) {
+                                            // Ajoutez les points du fruit mangé au score
+                                            score += superbouleMange.getScore();
+
+                                            // Mettez à jour la grille et la position de Pac-Man après avoir mangé le fruit
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i + 1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        }
+                                    }
+
+
+                                    // Vérifiez si la case contient un fruit ('B' pour cerise, 'K' pour kiwi, 'C' pour litchi, etc.)
+                                    if (terrain.getGrille()[i + 1][j] == 'B' || terrain.getGrille()[i + 1][j] == 'K' || terrain.getGrille()[i + 1][j] == 'C') {
+                                        Fruit fruitMange = null; // Initialisez un objet Fruit à null
+
+                                        switch (terrain.getGrille()[i + 1][j]) {
+                                            case 'B': // Banane
+                                                // Obtenir l'objet Fruit correspondant à la cerise à la position (i, j + 1)
+                                                fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.BANANE);
+                                                break;
+                                            case 'K': // Kiwi
+                                                // Obtenir l'objet Fruit correspondant au kiwi à la position (i, j + 1)
+                                                fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.KIWI);
+                                                break;
+                                            case 'C': // Cerise
+                                                // Obtenir l'objet Fruit correspondant au litchi à la position (i, j + 1)
+                                                fruitMange = getFruitAtPosition(fruits, i, j + 1, TypeFruit.CERISE);
+                                                break;
+
+                                            default:
+                                                break;
+                                        }
+
+
+                                        if (fruitMange != null) {
+                                            // Ajout des points du fruit mangé au score
+                                            score += fruitMange.getScore();
+
+                                            // Mettre à jour la grille et la position de Pac-Man après avoir mangé le fruit
+                                            terrain.getGrille()[i][j] = '.'; // Mettre à jour la case comme vide après avoir mangé le fruit
+                                            terrain.getGrille()[i + 1][j] = 'P'; // Déplacez Pac-Man sur la case suivante
+                                        }
+                                    }
                                 }
 
                             }
-                            //HAUT
-                            else if (df1 == Direction.HAUT && i > 0) {
-                                //REACTION A CASE
-                                if (terrain.getGrille()[i - 1][j] == '.') {
-                                    terrain.getGrille()[i][j] = '.';
-                                    terrain.getGrille()[i - 1][j] = 'F';
-                                } else if (terrain.getGrille()[i - 1][j] == 'M') {
-                                    System.out.println("MUR EN HAUT");
+                        case 'F':
+                            y = y + 1;
+                            if (y == 1) {
+
+                                //DROITE
+                                if (df1 == Direction.DROITE && j < terrain.getGrille()[0].length - 1) {
+                                    //REACTION A CASE
+                                    if (terrain.getGrille()[i][j + 1] == '.') {
+                                        terrain.getGrille()[i][j] = '.';
+                                        terrain.getGrille()[i][j + 1] = 'F';
+                                    } else if (terrain.getGrille()[i][j + 1] == 'M') {
+                                        System.out.println("MUR A DROITE");
+                                    }
+
                                 }
+                                //HAUT
+                                else if (df1 == Direction.HAUT && i > 0) {
+                                    //REACTION A CASE
+                                    if (terrain.getGrille()[i - 1][j] == '.') {
+                                        terrain.getGrille()[i][j] = '.';
+                                        terrain.getGrille()[i - 1][j] = 'F';
+                                    } else if (terrain.getGrille()[i - 1][j] == 'M') {
+                                        System.out.println("MUR EN HAUT");
+                                    }
 
-                            }
-                            //GAUCHE
-                            else if (df1 == Direction.GAUCHE && j > 0) {
-                                //REACTION A CASE
-                                if (terrain.getGrille()[i][j - 1] == '.') {
-                                    terrain.getGrille()[i][j] = '.';
-                                    terrain.getGrille()[i][j - 1] = 'F';
-                                } else if (terrain.getGrille()[i][j - 1] == 'M') {
-                                    System.out.println("MUR A GAUCHE");
                                 }
+                                //GAUCHE
+                                else if (df1 == Direction.GAUCHE && j > 0) {
+                                    //REACTION A CASE
+                                    if (terrain.getGrille()[i][j - 1] == '.') {
+                                        terrain.getGrille()[i][j] = '.';
+                                        terrain.getGrille()[i][j - 1] = 'F';
+                                    } else if (terrain.getGrille()[i][j - 1] == 'M') {
+                                        System.out.println("MUR A GAUCHE");
+                                    }
 
-                            }
-                            //BAS
-                            else if (df1 == Direction.BAS && i < terrain.getGrille().length - 1) {
-                                //REACTION A CASE
-                                if (terrain.getGrille()[i + 1][j] == '.') {
-                                    terrain.getGrille()[i][j] = '.';
-                                    terrain.getGrille()[i + 1][j] = 'F';
-                                } else if (terrain.getGrille()[i + 1][j] == 'M') {
-                                    System.out.println("MUR EN BAS");
                                 }
+                                //BAS
+                                else if (df1 == Direction.BAS && i < terrain.getGrille().length - 1) {
+                                    //REACTION A CASE
+                                    if (terrain.getGrille()[i + 1][j] == '.') {
+                                        terrain.getGrille()[i][j] = '.';
+                                        terrain.getGrille()[i + 1][j] = 'F';
+                                    } else if (terrain.getGrille()[i + 1][j] == 'M') {
+                                        System.out.println("MUR EN BAS");
+                                    }
 
 
+                                }
                             }
-                        }
                     }
 
 
+
+                    if (toutesLesBoulesMangees()) {
+                        preparerNouveauNiveau();
+                        // return ;
+                    }
                     d = directionAleatoire(d); //Mettre ici la valeur de direction reçu
                     df1 = directionAleatoire(df1);
                     System.out.println();
@@ -664,6 +685,8 @@ public class Jeu {
 
 
     public void terminerJeu() {
+        enCours=false;
+
     }
 }
 

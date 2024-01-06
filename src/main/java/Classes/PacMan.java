@@ -18,6 +18,14 @@ public class PacMan extends Personnage {
     public void setVies(int vies) {
         this.vies = vies;
     }
+    public void perdreVies() {
+        vies--;
+    }
+
+
+    public boolean estVivant() {
+        return vies > 0;
+    }
 
     public int getVitesse() {
         return vitesse;

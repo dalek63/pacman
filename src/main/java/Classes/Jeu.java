@@ -11,11 +11,14 @@ public class Jeu {
     private List<Fantome> fantomes;
     private int score;
 
+    private int niveauActuel;
+
     public Jeu(Terrain terrain, PacMan pacMan, List<Fantome> fantomes) {
         this.terrain = terrain;
         this.pacMan = pacMan;
         this.fantomes = new ArrayList<>();
         this.score = 0;
+        this.niveauActuel = 1;
 
 
         this.score = 0;
@@ -95,6 +98,38 @@ public class Jeu {
             System.out.println();
         }
     }
+    private boolean estUnFruit(char caseActuelle) {
+        // Vérifier si le caractère représente un fruit (à adapter selon votre implémentation)
+        return caseActuelle == 'B' || caseActuelle == 'K' || caseActuelle == 'C'; // etc.
+    }
+
+    private boolean toutesLesBoulesMangees() {
+        // Vérifier si toutes les boules, superboules et fruits ont été mangées
+        for (int i = 0; i < terrain.getGrille().length; i++) {
+            for (int j = 0; j < terrain.getGrille()[i].length; j++) {
+                char caseActuelle = terrain.getGrille()[i][j];
+                if (caseActuelle == 'o' || caseActuelle == 'O' || estUnFruit(caseActuelle)) {
+                    return false; // Il reste des éléments à manger
+                }
+            }
+        }
+        return true; // Tous les éléments ont été mangés
+    }
+
+    private void preparerNouveauNiveau() {
+        niveauActuel++;
+        terrain.changerNiveau(niveauActuel); // Assurez-vous que la méthode `changerNiveau` existe dans la classe Terrain
+        // Réinitialiser les positions de Pac-Man et des fantômes, etc.
+        System.out.println("Bravo, Niveau suivant ! Niveau " + niveauActuel);
+        demarrerJeu();
+    }
+
+    public void verifierEtMettreAJourNiveau() {
+        if (toutesLesBoulesMangees()) {
+            System.out.println("Bravo, Niveau suivant !");
+            preparerNouveauNiveau();
+        }
+    }
 
     public void demarrerJeu() {
 /*
@@ -165,7 +200,7 @@ public class Jeu {
 
 
  */
-        int score = 0;
+     //   int score = 0;
         Direction d = Direction.DROITE;
         Direction df1 = Direction.DROITE;
         int x;
@@ -188,7 +223,7 @@ public class Jeu {
                 System.out.println();
 
             }
-            System.out.println(score);
+            System.out.println(" Votre score : "+ score);
             System.out.println("-------------------------------------------------------------------");
 
 // Reaction des differents déplacements
@@ -531,6 +566,10 @@ public class Jeu {
                                     }
                                 }
                             }
+
+                        }if (toutesLesBoulesMangees()) {
+                            preparerNouveauNiveau();
+                           // return ;
                         }
                     } else if (terrain.getGrille()[i][j] == 'F') {
                         y = y + 1;

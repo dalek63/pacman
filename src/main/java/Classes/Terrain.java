@@ -1,35 +1,60 @@
 package Classes;
 public class Terrain {
     private char[][] grille;
+    private char[][] grilleNiveau2;
+    private char[][] grilleNiveau3;
 
     public Terrain() {
 
         grille = new char[][] {
 
-                {'P', 'o', 'K', 'K', 'M', '.', '.', '.', '.', '.', '.', '.', '.', 'O', '.'},
-                {'O', 'M', '.', 'C', 'M', '.', '.', '.', 'M', 'M', '.', 'o', 'M', '.', '.'},
-                {'K', 'M', 'M', 'O', 'M', 'M', '.', 'M', '.', 'C', '.', '.', '.', 'K', '.'},
-                {'O', '.', 'M', 'M', '.', 'M', '.', 'M', '.', '.', 'O', 'M', 'M', 'M', '.'},
-                {'.', '.', '.', 'B', '.', '.', '.', 'M', 'M', 'M', '.', '.', 'K', 'M', 'M'},
-                {'B', 'C', 'M', '.', '.', 'M', '.', 'O', 'M', '.', '.', 'M', '.', 'K', 'C'},
-                {'K', '.', '.', 'O', '.', '.', '.', 'M', '.', 'M', '.', 'M', 'M', 'M', '.'},
-                {'M', 'M', 'M', '.', 'M', 'B', 'M', 'K', 'M', '.', 'M', 'K', 'M', '.', 'o'},
-                {'.', '.', 'M', '.', 'M', '.', 'M', '.', 'M', 'o', 'M', '.', '.', 'B', '.'},
-                {'M', 'M', 'M', '.', '.', '.', 'M', 'M', 'M', '.', '.', 'C', 'M', 'M', '.'},
-                {'K', 'o', '.', '.', '.', 'B', 'C', '.', 'M', '.', 'O', '.', 'M', '.', '.'},
-                {'M', 'M', 'M', 'M', 'M', 'M', 'M', 'K', '.', 'C', '.', 'O', 'M', '.', '.'},
-                {'.', '.', '.', 'M', '.', 'C', '.', '.', '.', 'M', '.', 'M', 'M', 'O', 'C'},
-                {'C', 'O', '.', 'M', '.', '.', '.', 'B', '.', '.', 'B', 'M', '.', '.', '.'},
-                {'F', '.', '.', '.', '.', 'M', 'M', 'M', '.', '.', '.', 'o', 'K', 'M', '.'}
+                {'P', 'o', '.'},
+                {'.', 'M', '.'}
         };
 
+
+
+       grilleNiveau2 = new char[][] {
+               {'P', 'o', '.'},
+               {'.', 'M', '.'}
+        };
+       grilleNiveau3 = new char[][] {
+                {'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M'},
+                {'M', 'P', 'o', 'M', '.', 'K', 'M', '.', 'M', 'o', 'C', 'M', '.', 'B', 'M'},
+                {'M', 'M', 'M', '.', 'M', '.', 'M', 'o', 'M', '.', 'M', '.', 'M', 'M', 'M'},
+                {'M', 'o', '.', '.', 'o', '.', '.', '.', '.', '.', 'o', '.', '.', 'o', 'M'},
+                {'M', 'M', 'M', '.', 'M', 'M', 'M', 'M', 'M', 'M', '.', 'M', 'M', 'M', 'M'},
+                {'M', 'K', 'o', '.', '.', 'M', 'B', 'O', 'M', '.', '.', '.', 'o', 'K', 'M'},
+                {'M', '.', 'M', 'M', 'M', '.', 'M', '.', 'M', '.', 'M', 'M', 'M', '.', 'M'},
+                {'M', 'o', 'M', '.', 'M', 'o', 'M', 'C', 'M', 'o', 'M', '.', 'M', 'o', 'M'},
+                {'M', '.', 'M', 'M', 'M', '.', 'M', '.', 'M', '.', 'M', 'M', 'M', '.', 'M'},
+                {'M', 'C', 'o', '.', '.', 'M', '.', 'M', 'M', '.', '.', '.', 'o', 'C', 'M'},
+                {'M', 'M', 'M', '.', 'M', 'M', 'M', 'M', 'M', 'M', '.', 'M', 'M', 'M', 'M'},
+                {'M', '.', '.', 'o', '.', 'M', '.', '.', '.', 'M', '.', 'o', '.', '.', 'M'},
+                {'M', 'o', 'M', 'M', '.', 'M', 'M', '.', 'M', 'M', '.', 'M', 'M', 'o', 'M'},
+                {'M', 'B', 'o', 'M', '.', 'o', 'M', '.', 'M', 'o', '.', 'M', 'o', 'F', 'M'},
+                {'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M'}
+        };
     }
 
     public char[][] getGrille() {
         return grille;
     }
+    // Méthode pour changer la grille en fonction du niveau
+    public void changerNiveau(int niveau) {
+        switch (niveau) {
 
-    private boolean estDansLimites(int ligne, int colonne) {
-        return ligne >= 0 && ligne < grille.length && colonne >= 0 && colonne < grille[0].length;
-    }
-}
+            case 2:
+                grille = grilleNiveau2;
+                break;
+            case 3:
+                grille = grilleNiveau3;
+                break;
+            // ... autres niveaux ...
+            default:
+                // Gestion du cas où le niveau n'est pas défini
+                break;
+        }
+
+
+    }}

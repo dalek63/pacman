@@ -33,7 +33,10 @@ public class GameController {
 
         return ResponseEntity.ok(currentGame);
     }
-
+    @GetMapping("/test-deploiement-back")
+    public String hello() {
+        return "Déploiement du back a été réalisé avec succès !";
+    }
     @PostMapping("/update-grid")
     public ResponseEntity<Game> updateGrid(@RequestBody String directionData) {
         Game currentGame = this.game;

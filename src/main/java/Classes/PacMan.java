@@ -60,6 +60,20 @@ public class PacMan extends Personnage {
     public void mangerSuperBoule() {
         this.game.setScore(50);
     }
+    private Fruit trouverFruit(int x, int y) {
+        for (Fruit fruit : this.game.fruits) {
+            if (fruit.getPosition().getPositionX() == x && fruit.getPosition().getPositionY() == y) {
+                return fruit;
+            }
+        }
+        return null;
+    }
+    public void mangerFruit(Fruit fruit) {
+        if (fruit != null) {
+            this.game.setScore(fruit.getPointsFruit());
+
+        }
+    }
 
 
     public void deplacer(char[][] terrain, int direction) {
@@ -158,6 +172,7 @@ public class PacMan extends Personnage {
             this.game.getPacMan().mangerBoule();
             this.game.getTerrain()[newX][newY] = '.';
             System.out.println("Boule!! : + 25 points");
+
             return true;
         }
 
@@ -165,10 +180,24 @@ public class PacMan extends Personnage {
             // Manger la super boule, augmenter le score de 50 points
             this.game.getPacMan().mangerSuperBoule();
             this.game.getTerrain()[newX][newY] = '.';
-            System.out.println("SuperBoule!! : + 25 points");
+            System.out.println("SuperBoule!! : + 50 points");
+
 
             return true;
         }
+        if (this.game.getTerrain()[newX][newY] == 'C' || this.game.getTerrain()[newX][newY] == 'B' || this.game.getTerrain()[newX][newY] == 'K') {
+            Fruit fruit = trouverFruit(newX, newY);
+            if (fruit != null) {
+                this.game.getPacMan().mangerFruit(fruit);
+                this.game.getTerrain()[newX][newY] = '.';
+                System.out.println("Fruit mangé : + " + fruit.getPointsFruit() + " points");
+
+            }
+            return true;
+        }
+
+
+
 
             return true; // Déplacement autorisé
     }

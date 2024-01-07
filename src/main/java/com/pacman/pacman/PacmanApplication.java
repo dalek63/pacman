@@ -17,23 +17,7 @@ public class PacmanApplication {
 
 		SpringApplication.run(PacmanApplication.class, args);
 
-//		Terrain t = new Terrain();
-//		Point point = new Point(0,5);
-//		Point point2 = new Point(3,7);
-//		Point point3 = new Point(5,8);
-//		//PacMan p = new PacMan(point, 3);
-//		Fantome f1 = new Fantome(point2, Direction.GAUCHE, ModeFantome.EFFRAYE);
-//		Fantome f2 = new Fantome(point3, Direction.HAUT, ModeFantome.EFFRAYE);
-//
-//		List<Fantome> fantomes = new ArrayList<Fantome>();
-//		fantomes.add(f1);
-//		fantomes.add(f2);
-//
-////		Jeu j = new Jeu(t, p, fantomes);
-//
-////		j.demarrerJeu();
-////		Game game = new Game();
-////		game.demarrerJeu();
+
 
 	}
 

@@ -28,7 +28,7 @@ public class Fruit {
     }
     // Méthode pour obtenir l'objet Fruit à une position spécifique dans la liste de fruits
 
-    public int getScore() {
+    public int getPointsFruit() {
 
         int points = 0;
         switch (type) {

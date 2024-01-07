@@ -1,6 +1,6 @@
 ## Pacman
 
-#**Description du Projet**
+#Description du Projet
 
 Bienvenue dans notre projet universitaire : une reconstitution du classique jeu d'arcade Pac-Man !
 

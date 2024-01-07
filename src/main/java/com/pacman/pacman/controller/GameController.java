@@ -42,7 +42,6 @@ public class GameController {
         System.out.println("direction "+direction);
         currentGame.updateGrid(direction.getDirection());
 
-
         return ResponseEntity.ok(currentGame);
     }
 

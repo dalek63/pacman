@@ -196,4 +196,8 @@ public class Game {
         return this.pacMan;
     }
 
+    public void setScore(int pointGagne){
+        this.score=+ pointGagne;
+    }
+
 }

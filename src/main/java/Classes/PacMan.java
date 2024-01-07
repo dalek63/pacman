@@ -54,9 +54,11 @@ public class PacMan extends Personnage {
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
     }
-
     public void mangerBoule() {
-
+        this.game.setScore(25);
+    }
+    public void mangerSuperBoule() {
+        this.game.setScore(50);
     }
 
 
@@ -150,14 +152,24 @@ public class PacMan extends Personnage {
             this.game.getPacMan().perdreVies();
             return false;
         }
+
         // Vérifier s'il y a une boule ou une super boule à la nouvelle position
-        if (this.game.getTerrain()[newX][newY] == 'o' || this.game.getTerrain()[newX][newY] == 'O') {
-            // Manger la boule, augmenter le score
-            //mangerBoule(terrain[newX][newY]);
-            // Réinitialiser la position de la boule sur la grille
+        if (this.game.getTerrain()[newX][newY] == 'o') {
+            this.game.getPacMan().mangerBoule();
             this.game.getTerrain()[newX][newY] = '.';
+            System.out.println("Boule!! : + 25 points");
             return true;
         }
+
+        if (this.game.getTerrain()[newX][newY] == 'O') {
+            // Manger la super boule, augmenter le score de 50 points
+            this.game.getPacMan().mangerSuperBoule();
+            this.game.getTerrain()[newX][newY] = '.';
+            System.out.println("SuperBoule!! : + 25 points");
+
+            return true;
+        }
+
             return true; // Déplacement autorisé
     }
 

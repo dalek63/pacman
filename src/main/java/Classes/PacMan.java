@@ -158,6 +158,7 @@ public class PacMan extends Personnage {
             this.game.getPacMan().mangerBoule();
             this.game.getTerrain()[newX][newY] = '.';
             System.out.println("Boule!! : + 25 points");
+            this.game.setScore(25);
             return true;
         }
 
@@ -165,7 +166,8 @@ public class PacMan extends Personnage {
             // Manger la super boule, augmenter le score de 50 points
             this.game.getPacMan().mangerSuperBoule();
             this.game.getTerrain()[newX][newY] = '.';
-            System.out.println("SuperBoule!! : + 25 points");
+            System.out.println("SuperBoule!! : + 50 points");
+            this.game.setScore(25);
 
             return true;
         }

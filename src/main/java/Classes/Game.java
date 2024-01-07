@@ -200,4 +200,6 @@ public class Game {
         this.score=+ pointGagne;
     }
 
+    public int getScore() {return this.score; }
+
 }

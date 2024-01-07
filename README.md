@@ -16,21 +16,29 @@ En tant qu'équipe d'étudiants, nous avons combiné nos compétences en dévelo
 
 Notre projet de jeu Pac-Man tire parti d'une gamme variée de technologies modernes, langages de programmation, frameworks et outils pour offrir une expérience utilisateur riche et une architecture robuste. Voici les principales technologies que nous avons utilisées :
 
-Spring Boot : Un framework puissant qui simplifie le développement d'applications Java, utilisé pour créer notre Back-End. Spring Boot facilite la configuration et le déploiement de l'application, tout en offrant une intégration aisée avec diverses dépendances.
+### Spring Boot : 
+Un framework puissant qui simplifie le développement d'applications Java, utilisé pour créer notre Back-End. Spring Boot facilite la configuration et le déploiement de l'application, tout en offrant une intégration aisée avec diverses dépendances.
 
-Java : Le langage de programmation principal de notre projet, choisi pour sa robustesse, sa portabilité et son écosystème riche. Java nous a permis de construire une application Back-End stable et performante.
+### Java : 
+Le langage de programmation principal de notre projet, choisi pour sa robustesse, sa portabilité et son écosystème riche. Java nous a permis de construire une application Back-End stable et performante.
 
-Maven : Un outil d'automatisation de gestion de projet utilisé pour gérer les dépendances de notre application Spring Boot. Maven facilite la construction, le test et le déploiement de notre application.
+### Maven : 
+Un outil d'automatisation de gestion de projet utilisé pour gérer les dépendances de notre application Spring Boot. Maven facilite la construction, le test et le déploiement de notre application.
 
-API REST : Nous avons développé une API REST pour faciliter la communication entre le Back-End et le Front-End. Cette approche nous a permis de créer une interface claire et bien définie pour les interactions entre les différentes parties de notre jeu.
+### API REST : 
+Nous avons développé une API REST pour faciliter la communication entre le Back-End et le Front-End. Cette approche nous a permis de créer une interface claire et bien définie pour les interactions entre les différentes parties de notre jeu.
 
-Microsoft Azure : Pour le déploiement de notre application, nous avons choisi Microsoft Azure. Cette plateforme cloud nous a offert la flexibilité, la scalabilité et la fiabilité nécessaires pour héberger notre application.
+### Microsoft Azure : 
+Pour le déploiement de notre application, nous avons choisi Microsoft Azure. Cette plateforme cloud nous a offert la flexibilité, la scalabilité et la fiabilité nécessaires pour héberger notre application.
 
-Postman : Utilisé en phase de développement pour tester et valider les fonctionnalités de notre API REST. Postman a été un outil clé pour s'assurer que notre API répond correctement aux requêtes et gère les différents scénarios de manière appropriée.
+### Postman : 
+Utilisé en phase de développement pour tester et valider les fonctionnalités de notre API REST. Postman a été un outil clé pour s'assurer que notre API répond correctement aux requêtes et gère les différents scénarios de manière appropriée.
 
-Git : Système de contrôle de version pour gérer efficacement les différentes versions du code source du projet.
+### Git : 
+Système de contrôle de version pour gérer efficacement les différentes versions du code source du projet.
 
-GitHub : Plateforme de gestion de code source et de collaboration, utilisée pour héberger notre répertoire Git et faciliter le travail d'équipe.
+### GitHub : 
+Plateforme de gestion de code source et de collaboration, utilisée pour héberger notre répertoire Git et faciliter le travail d'équipe.
 
 
 Chacune de ces technologies a été sélectionnée pour sa fiabilité, ses performances et sa compatibilité avec notre vision du projet. Ensemble, elles forment le socle sur lequel repose notre jeu Pac-Man, garantissant une expérience utilisateur optimale.

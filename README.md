@@ -67,7 +67,7 @@ Pour configurer et lancer le Back-End de notre jeu Pac-Man, veuillez suivre ces 
 - Lancer l'Application Spring Boot : Lancez l'application en utilisant Maven :  ./mvnw spring-boot:run
                                                              ou pour Windows :   mvnw spring-boot:run
 
-- Accéder à l'API : L'API REST sera accessible via http://localhost:8080/api/ une fois l'application en cours d'exécution.
+- Déploiement : Notre application est déployée avec succès. Pour le vérifier, il suffit de vous rendre à l'adresse suivante : https://pacmanwebapp.azurewebsites.net/test-deploiement-back
 
 ### Dépannage :
 
@@ -78,6 +78,7 @@ Si des problèmes surviennent lors du démarrage, vérifiez que JDK 17 est corre
 
 - Le Back-End du jeu est construit sur une architecture basée sur Spring Boot, permettant une gestion efficace des requêtes et une communication fluide via l'API REST.
 - L'API REST joue un rôle clé dans l'interaction entre le jeu (Back-End) et l'interface utilisateur (Front-End), en transmettant les données de l'état du jeu, les actions du joueur, et les mises à jour en temps réel.
+- Le déploiement a été réalisé avec succès. Pour vérifier cela, rendez-vous dans l'onglet "Actions" du répertoire GitHub du projet, ou cliquez sur ce lien : https://github.com/dalek63/pacman/actions pour un accès direct.
 
 
 

@@ -35,13 +35,15 @@ public class GameController {
     }
 
     @PostMapping("/update-grid")
-    public ResponseEntity<Game> updateGrid(@RequestBody DirectionWrapper direction) {
+    public ResponseEntity<Game> updateGrid(@RequestBody String directionData) {
         Game currentGame = this.game;
 
-        // Mettre à jour la grille avec la nouvelle direction
-        System.out.println("direction "+direction);
-        currentGame.updateGrid(direction.getDirection());
+        DirectionWrapper directionConverter = new DirectionWrapper(directionData);
 
+        System.out.println("direction data "+directionData);
+        // Mettre à jour la grille avec la nouvelle direction
+        currentGame.updateGrid(directionConverter.getDirection());
+        System.out.println("direction recu convertit "+directionConverter.getDirection());
         return ResponseEntity.ok(currentGame);
     }
 

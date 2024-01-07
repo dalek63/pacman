@@ -3,6 +3,10 @@ package Classes;
 public class DirectionWrapper{
     private String direction;
 
+
+    public DirectionWrapper(String direction){
+        this.direction = direction;
+    }
     public int getDirection() {
         return convertStringToInt(direction);
     }

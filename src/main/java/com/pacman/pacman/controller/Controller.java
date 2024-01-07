@@ -2,7 +2,8 @@ package com.pacman.pacman.controller;
 
 
 // GameController.java
-import Classes.Directiontest;
+import Classes.DirectionWrapper;
+import Classes.Game;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Controller {
 
-    @PostMapping("/update-grid")
-    public String updateGrid(@RequestBody Directiontest direction) {
-        // Logique de mise à jour de la grille avec la nouvelle direction
-        return "Grid mise à jour avec la direction : " + direction.getValue();
-    }
+//    @PostMapping("/update-grid")
+//    public String updateGrid(@RequestBody int direction ) {
+//
+//        return "Grid mise à jour avec la direction : " + game.updateGrid(direction);
+//    }
 
 
 }

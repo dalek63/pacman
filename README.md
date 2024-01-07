@@ -1,6 +1,6 @@
-## Pacman
+# Pacman
 
-**Description du Projet:**
+## Description du Projet:
 
 Bienvenue dans notre projet universitaire : une reconstitution du classique jeu d'arcade Pac-Man !
 
@@ -11,7 +11,8 @@ Notre objectif était de développer un composant essentiel qui, en collaboratio
 En tant qu'équipe d'étudiants, nous avons combiné nos compétences en développement et notre passion pour Pac-Man dans le but de contribuer de manière significative à ce jeu intemporel. Notre travail sur ce projet est une célébration de l'héritage de Pac-Man et offre une contribution unique à l'expérience globale du jeu, procurant amusement et défi tant aux joueurs nostalgiques qu'aux nouveaux venus.
 
 
-**Technologies Utilisées :**
+
+## Technologies Utilisées :
 
 Notre projet de jeu Pac-Man tire parti d'une gamme variée de technologies modernes, langages de programmation, frameworks et outils pour offrir une expérience utilisateur riche et une architecture robuste. Voici les principales technologies que nous avons utilisées :
 
@@ -35,7 +36,8 @@ GitHub : Plateforme de gestion de code source et de collaboration, utilisée pou
 Chacune de ces technologies a été sélectionnée pour sa fiabilité, ses performances et sa compatibilité avec notre vision du projet. Ensemble, elles forment le socle sur lequel repose notre jeu Pac-Man, garantissant une expérience utilisateur optimale.
 
 
-**Comment Lancer le Back-End du Jeu**
+
+## Comment Lancer le Back-End du Jeu
 
 Pour configurer et lancer le Back-End de notre jeu Pac-Man, veuillez suivre ces instructions :
 Prérequis :
@@ -43,7 +45,7 @@ Prérequis :
 - Java Development Kit (JDK) : Java 17 est requis pour ce projet. Assurez-vous d'avoir installé JDK 17, car des versions plus récentes (comme JDK 18 ou 19) ne sont pas compatibles avec notre déploiement sur Azure. Vous pouvez télécharger JDK 17 depuis AdoptOpenJDK ou Oracle JDK.
 - Git : Pour cloner le projet depuis le dépôt Git. Si Git n'est pas installé sur votre machine, vous pouvez le télécharger depuis Git Downloads.
 
-Étapes pour Lancer le Back-End :
+### Étapes pour Lancer le Back-End :
 
 - Cloner le Répertoire Git : Ouvrez un terminal ou une invite de commande et exécutez la commande suivante :
             git clone [URL du dépôt Git]
@@ -59,9 +61,41 @@ Si vous utilisez un IDE comme IntelliJ IDEA, il peut automatiquement suggérer d
 
 - Accéder à l'API : L'API REST sera accessible via http://localhost:8080/api/ une fois l'application en cours d'exécution.
 
-** Dépannage :**
+### Dépannage :
 
 Si des problèmes surviennent lors du démarrage, vérifiez que JDK 17 est correctement installé et configuré comme votre JDK par défaut.
+
+
+
+## Collaboration entre les Équipes Front-End et Back-End
+Notre projet Pac-Man est le résultat d'une collaboration étroite entre deux équipes spécialisées : notre équipe, qui gère le Back-End, et une équipe partenaire qui se concentre sur le Front-End. Travaillant en tandem, nous avons créé une expérience de jeu fluide et interactive.
+
+### Rôle de Notre Équipe (Back-End) :
+- Développement de la Logique du Jeu : Nous avons construit le cœur du jeu, gérant la logique, l'état du jeu, et le traitement des données.
+- Mise en Place d'une API REST : Nous avons développé une API REST pour faciliter une communication efficace avec l'équipe Front-End, permettant une interaction dynamique entre les deux parties du jeu.
+- Transmission des Données de Jeu : Notre API envoie les coordonnées et états de Pac-Man, ainsi que d'autres données essentielles au gameplay.
+
+### Rôle de l'Équipe Front-End :
+- Création de l'Interface Utilisateur : L'équipe Front-End a développé l'interface visuelle du jeu, incluant les graphismes et l'expérience utilisateur.
+- Interaction avec l'API REST : Ils utilisent notre API pour recevoir les données du jeu et afficher les éléments correspondants à l'écran.
+- Commandes de Déplacement : Les commandes de déplacement de Pac-Man et les interactions de l'utilisateur sont envoyées via l'API à notre système Back-End pour traitement.
+Pour en savoir plus sur le travail de l'équipe Front-End, consultez leur dépôt Git : XXXXXXX
+
+Cette collaboration étroite entre nos équipes assure une synchronisation parfaite entre les actions du joueur dans l'interface graphique et la logique du jeu traitée par notre Back-End. Elle garantit également que l'état actuel du jeu est constamment mis à jour et affiché par le Front-End.
+
+
+
+## Liste des Contributeurs :
+
+Notre projet Pac-Man a été mené à bien grâce à une collaboration étroite et équilibrée entre tous les membres de notre équipe. Chacun a apporté son expertise, ses idées et son énergie, contribuant de manière significative à chaque aspect du projet. Nous tenons à reconnaître et à remercier chaque membre de l'équipe pour leur dévouement et leur travail acharné :
+- Sarah BELHADDAD
+- Zakari BOUMAZA
+- Rémi SEVERT
+
+
+
+
+
 
 
 

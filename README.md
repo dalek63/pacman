@@ -104,7 +104,7 @@ Cette collaboration étroite entre nos équipes assure une synchronisation parfa
 Notre projet Pac-Man a été mené à bien grâce à une collaboration étroite et équilibrée entre tous les membres de notre équipe. Chacun a apporté son expertise, ses idées et son énergie, contribuant de manière significative à chaque aspect du projet. Nous tenons à reconnaître et à remercier chaque membre de l'équipe pour leur dévouement et leur travail acharné :
 - Sarah BELHADDAD
 - Zakari BOUMAZA
-- Rémi SEVERT
+- Rémi SEVRET
 
 
 

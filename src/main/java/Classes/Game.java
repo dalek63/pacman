@@ -197,9 +197,9 @@ public class Game {
     }
 
     public void setScore(int pointGagne){
-        this.score=+ pointGagne;
+        this.score+= pointGagne;
     }
 
-    public int getScore() {return this.score; }
+    public int getScore() {return score; }
 
 }

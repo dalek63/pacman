@@ -43,18 +43,7 @@ public class Game {
             pacMan.deplacer(this.terrain.getGrille(), direction);
 //            this.lastDirections.add(direction);
         }
-//
-//        if (direction != null) {
-//            deplacerPacman(direction);
-//            checkCollisionPacmanFantome();
-//            checkCollisionPacmanBoule();
-//            checkGameOver();
-//        }
-//        if (!lastDirections.isEmpty()){
-//            if(direction == this.lastDirections.size() - 1){
-//                pacMan.deplacer(this.terrain.getGrille(), direction);
-//            }
-//        }
+
 
         // Mettre à jour la position des fantômes
         deplacerFantomes();
@@ -67,15 +56,7 @@ public class Game {
         afficherGrille(terrain.getGrille());
         this.started = true;
         initialiserJeu();
-//        updateGrid(1);
-//        updateGrid(1);
-//        updateGrid(1);
-//        updateGrid(1);
-//        updateGrid(2);
-//        for (int i = 0; i< x; i++){
-//            System.out.println("itération : "+i);
-//
-//        }
+
     }
 
     public void finJeu(){

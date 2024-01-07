@@ -78,8 +78,8 @@ public class Game {
 //        }
     }
 
-    public boolean finJeu(){
-        return false;
+    public void finJeu(){
+        this.started = false ;
     }
 
 

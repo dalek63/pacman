@@ -48,7 +48,8 @@ Chacune de ces technologies a été sélectionnée pour sa fiabilité, ses perfo
 ## Comment Lancer le Back-End du Jeu
 
 Pour configurer et lancer le Back-End de notre jeu Pac-Man, veuillez suivre ces instructions :
-Prérequis :
+
+### Prérequis :
 
 - Java Development Kit (JDK) : Java 17 est requis pour ce projet. Assurez-vous d'avoir installé JDK 17, car des versions plus récentes (comme JDK 18 ou 19) ne sont pas compatibles avec notre déploiement sur Azure. Vous pouvez télécharger JDK 17 depuis AdoptOpenJDK ou Oracle JDK.
 - Git : Pour cloner le projet depuis le dépôt Git. Si Git n'est pas installé sur votre machine, vous pouvez le télécharger depuis Git Downloads.
@@ -56,22 +57,27 @@ Prérequis :
 ### Étapes pour Lancer le Back-End :
 
 - Cloner le Répertoire Git : Ouvrez un terminal ou une invite de commande et exécutez la commande suivante :
-            git clone [URL du dépôt Git]
+            git clone (https://github.com/dalek63/pacman.git)
   
-- Vérifier les Dépendances dans pom.xml : Ouvrez et examinez le fichier pom.xml pour vous assurer que toutes les dépendances nécessaires sont présentes.
-Si vous utilisez un IDE comme IntelliJ IDEA, il peut automatiquement suggérer d'installer les plugins et les dépendances nécessaires. Sinon, vérifiez et installez-les manuellement.
+- Vérifier les Dépendances dans pom.xml : Ouvrez et examinez le fichier pom.xml pour vous assurer que toutes les dépendances nécessaires sont présentes. Si vous utilisez un IDE comme IntelliJ IDEA, il peut automatiquement suggérer d'installer les plugins et les dépendances nécessaires. Sinon, vérifiez et installez-les manuellement.
 
 - Naviguer dans le Répertoire du Projet : Utilisez cette commande pour accéder au répertoire du projet :                   
                                           cd chemin/vers/le/projet
 
 - Lancer l'Application Spring Boot : Lancez l'application en utilisant Maven :  ./mvnw spring-boot:run
-                                                             ou pour Windows : mvnw spring-boot:run
+                                                             ou pour Windows :   mvnw spring-boot:run
 
 - Accéder à l'API : L'API REST sera accessible via http://localhost:8080/api/ une fois l'application en cours d'exécution.
 
 ### Dépannage :
 
 Si des problèmes surviennent lors du démarrage, vérifiez que JDK 17 est correctement installé et configuré comme votre JDK par défaut.
+
+
+## Architecture du Jeu et de l'API :
+
+- Le Back-End du jeu est construit sur une architecture basée sur Spring Boot, permettant une gestion efficace des requêtes et une communication fluide via l'API REST.
+- L'API REST joue un rôle clé dans l'interaction entre le jeu (Back-End) et l'interface utilisateur (Front-End), en transmettant les données de l'état du jeu, les actions du joueur, et les mises à jour en temps réel.
 
 
 
@@ -87,7 +93,7 @@ Notre projet Pac-Man est le résultat d'une collaboration étroite entre deux é
 - Création de l'Interface Utilisateur : L'équipe Front-End a développé l'interface visuelle du jeu, incluant les graphismes et l'expérience utilisateur.
 - Interaction avec l'API REST : Ils utilisent notre API pour recevoir les données du jeu et afficher les éléments correspondants à l'écran.
 - Commandes de Déplacement : Les commandes de déplacement de Pac-Man et les interactions de l'utilisateur sont envoyées via l'API à notre système Back-End pour traitement.
-Pour en savoir plus sur le travail de l'équipe Front-End, consultez leur dépôt Git : XXXXXXX
+Pour en savoir plus sur le travail de l'équipe Front-End, consultez leur dépôt Git : (https://github.com/Svvmy/pacman-aos)
 
 Cette collaboration étroite entre nos équipes assure une synchronisation parfaite entre les actions du joueur dans l'interface graphique et la logique du jeu traitée par notre Back-End. Elle garantit également que l'état actuel du jeu est constamment mis à jour et affiché par le Front-End.
 

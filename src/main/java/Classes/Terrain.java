@@ -1,56 +1,109 @@
 package Classes;
-
 public class Terrain {
-    private Cellule[][] grille;
+    private char[][] grille;
+    private char[][] grilleInit;
+    private char[][] grilleNiveau2;
+    private char[][] grilleNiveau3;
 
-    public Terrain(int lignes, int colonnes) {
-        grille = new Cellule[lignes][colonnes];
+    public Terrain() {
 
-        // Initialisez chaque Cellule avec un type par défaut (par exemple, VIDE)
-        for (int i = 0; i < lignes; i++) {
-            for (int j = 0; j < colonnes; j++) {
-                grille[i][j] = new Cellule(TypeCellule.VIDE, new Point(i, j));
-            }
+        grille = new char[][] {
+                {'P', 'o', 'O', 'F', 'M', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
+                {'.', 'M', '.', 'M', 'M', '.', '.', '.', 'M', 'M', '.', 'o', 'M', '.', '.'},
+                {'.', 'M', 'M', 'O', 'M', 'M', '.', 'M', '.', '.', '.', '.', '.', '.', '.'},
+                {'O', '.', 'M', '.', '.', 'M', '.', 'M', '.', '.', 'O', 'M', 'M', 'M', '.'},
+                {'.', '.', '.', '.', '.', '.', '.', 'M', 'M', 'M', '.', '.', '.', 'M', 'M'},
+                {'.', '.', 'M', '.', '.', 'M', '.', 'O', 'M', '.', '.', 'M', '.', '.', '.'},
+                {'.', '.', '.', 'O', '.', '.', '.', 'M', '.', 'M', '.', 'M', 'M', 'M', '.'},
+                {'M', 'M', 'M', '.', 'M', '.', 'M', '.', 'M', '.', 'M', '.', 'M', '.', 'o'},
+                {'.', '.', 'M', '.', 'M', '.', 'M', '.', 'M', 'o', 'M', '.', '.', '.', '.'},
+                {'M', 'M', 'M', '.', '.', '.', 'M', 'M', 'M', '.', '.', '.', 'M', 'M', '.'},
+                {'.', 'o', '.', '.', '.', '.', '.', '.', 'M', '.', 'O', '.', 'M', '.', '.'},
+                {'M', 'M', 'M', 'M', 'M', 'M', 'M', '.', '.', '.', '.', 'O', 'M', '.', '.'},
+                {'.', '.', '.', 'M', '.', '.', '.', '.', '.', 'M', '.', 'M', 'M', 'O', '.'},
+                {'.', 'O', '.', 'M', '.', '.', '.', '.', '.', '.', '.', 'M', '.', '.', '.'},
+                {'F', '.', '.', '.', '.', 'M', 'M', 'M', '.', '.', '.', 'o', '.', 'M', '.'},
+        };
+
+        grilleInit = new char[][] {
+                {'P', 'o', 'O', 'F', 'M', '.', '.', '.', '.', '.', '.', '.', '.', 'O', '.'},
+                {'K', 'M', '.', 'M', 'M', '.', '.', '.', 'M', 'M', '.', 'o', 'M', '.', '.'},
+                {'K', 'M', 'M', 'O', 'M', 'M', '.', 'M', '.', 'C', '.', '.', '.', 'K', '.'},
+                {'O', '.', 'M', '.', '.', 'M', '.', 'M', '.', '.', 'O', 'M', 'M', 'M', '.'},
+                {'.', '.', '.', 'B', '.', '.', '.', 'M', 'M', 'M', '.', '.', 'K', 'M', 'M'},
+                {'B', 'C', 'M', '.', '.', 'M', '.', 'O', 'M', '.', '.', 'M', '.', 'K', 'C'},
+                {'K', '.', '.', 'O', '.', '.', '.', 'M', '.', 'M', '.', 'M', 'M', 'M', '.'},
+                {'M', 'M', 'M', '.', 'M', 'B', 'M', 'K', 'M', '.', 'M', 'K', 'M', '.', 'o'},
+                {'.', '.', 'M', '.', 'M', '.', 'M', '.', 'M', 'o', 'M', '.', '.', 'B', '.'},
+                {'M', 'M', 'M', '.', '.', '.', 'M', 'M', 'M', '.', '.', 'C', 'M', 'M', '.'},
+                {'K', 'o', '.', '.', '.', 'B', 'C', '.', 'M', '.', 'O', '.', 'M', '.', '.'},
+                {'M', 'M', 'M', 'M', 'M', 'M', 'M', 'K', '.', 'C', '.', 'O', 'M', '.', '.'},
+                {'.', '.', '.', 'M', '.', 'C', '.', '.', '.', 'M', '.', 'M', 'M', 'O', 'C'},
+                {'C', 'O', '.', 'M', '.', '.', '.', 'B', '.', '.', 'B', 'M', '.', '.', '.'},
+                {'F', '.', '.', '.', '.', 'M', 'M', 'M', '.', '.', '.', 'o', 'K', 'M', '.'},
+        };
+
+
+
+       grilleNiveau2 = new char[][] {
+               {'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M'},
+               {'M', 'P', 'o', 'M', '.', 'o', 'M', 'K', 'M', 'C', '.', 'M', 'o', 'B', 'M'},
+               {'M', 'o', 'M', 'M', '.', 'M', 'M', '.', 'M', 'M', '.', 'M', 'M', 'o', 'M'},
+               {'M', '.', '.', 'o', '.', 'M', 'B', '.', 'C', 'M', '.', 'o', '.', '.', 'M'},
+               {'M', 'M', 'M', '.', 'M', 'M', 'M', 'M', 'M', 'M', '.', 'M', 'M', 'M', 'M'},
+               {'M', 'o', '.', '.', '.', 'o', 'M', 'O', 'M', 'o', '.', '.', '.', 'o', 'M'},
+               {'M', '.', 'M', 'M', 'M', '.', 'M', '.', 'M', '.', 'M', 'M', 'M', '.', 'M'},
+               {'M', 'K', 'M', '.', 'M', 'o', 'M', 'B', 'M', 'o', 'M', '.', 'M', 'K', 'M'},
+               {'M', '.', 'M', 'M', 'M', '.', 'M', '.', 'M', '.', 'M', 'M', 'M', '.', 'M'},
+               {'M', 'o', '.', '.', '.', 'o', 'M', 'C', 'M', 'o', '.', '.', '.', 'o', 'M'},
+               {'M', 'M', 'M', '.', 'M', 'M', 'M', 'M', 'M', 'M', '.', 'M', 'M', 'M', 'M'},
+               {'M', '.', '.', 'o', '.', 'M', 'K', '.', 'O', 'M', '.', 'o', '.', '.', 'M'},
+               {'M', 'o', 'M', 'M', '.', 'M', 'M', '.', 'M', 'M', '.', 'M', 'M', 'o', 'M'},
+               {'M', 'B', 'o', 'M', '.', 'o', 'M', '.', 'M', 'C', '.', 'M', 'o', 'F', 'M'},
+               {'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M'},
+        };
+       grilleNiveau3 = new char[][] {
+                {'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M'},
+                {'M', 'P', 'o', 'M', '.', 'K', 'M', '.', 'M', 'o', 'C', 'M', '.', 'B', 'M'},
+                {'M', 'M', 'F', '.', 'M', '.', 'M', 'o', 'M', '.', 'M', '.', 'M', 'M', 'M'},
+                {'M', 'o', '.', '.', 'o', '.', '.', '.', '.', '.', 'o', '.', '.', 'o', 'M'},
+                {'M', 'M', '.', '.', 'M', 'M', 'M', 'M', 'M', 'M', '.', 'M', 'M', 'M', 'M'},
+                {'M', 'F', 'o', '.', '.', 'M', 'B', 'O', 'M', '.', '.', '.', 'o', 'K', 'M'},
+                {'M', '.', 'M', 'M', 'M', '.', 'M', '.', 'M', '.', 'M', 'M', 'M', '.', 'M'},
+                {'M', 'o', 'M', '.', 'M', 'o', 'M', 'C', 'M', 'o', 'M', '.', 'M', 'o', 'M'},
+                {'M', '.', 'M', 'M', 'M', '.', 'M', '.', 'M', '.', 'M', 'M', 'M', '.', 'M'},
+                {'M', 'C', 'o', '.', '.', 'M', '.', 'M', 'M', '.', '.', '.', 'o', 'C', 'M'},
+                {'M', 'M', 'M', '.', 'M', 'M', 'M', 'M', 'M', 'M', '.', 'M', 'M', 'M', 'M'},
+                {'M', '.', '.', 'o', '.', 'M', '.', '.', '.', 'M', '.', 'o', '.', '.', 'M'},
+                {'M', 'o', 'M', 'M', '.', 'M', 'M', '.', 'M', 'M', '.', 'M', 'M', 'o', 'M'},
+                {'M', 'B', 'o', 'M', '.', 'o', 'M', '.', 'M', 'o', '.', 'M', 'o', 'F', 'M'},
+                {'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M', 'M'}
+        };
+    }
+
+    public char[][] getGrille() {
+        return grille;
+    }
+
+    public char[][] getGrilleInit() {
+        return grilleInit;
+    }
+
+    // Méthode pour changer la grille en fonction du niveau
+    public void changerNiveau(int niveau) {
+        switch (niveau) {
+
+            case 2:
+                grille = grilleNiveau2;
+                break;
+            case 3:
+                grille = grilleNiveau3;
+                break;
+            // ... autres niveaux ...
+            default:
+                // Gestion du cas où le niveau n'est pas défini
+                break;
         }
-    }
 
-    public void initialiserTerrainAvecMurs() {
-        // Logique pour définir les murs sur le terrain
-        grille[1][1].setType(TypeCellule.MUR);
-        grille[2][2].setType(TypeCellule.MUR);
-        // Ajoutez d'autres cellules de type mur selon vos besoins
-    }
 
-    public Cellule getCellule(int ligne, int colonne) {
-        if (estDansLimites(ligne, colonne)) {
-            return grille[ligne][colonne];
-        } else {
-            // Gérer l'erreur si les coordonnées sont hors limites
-            return null;
-        }
-    }
-
-    private boolean estDansLimites(int ligne, int colonne) {
-        return ligne >= 0 && ligne < grille.length && colonne >= 0 && colonne < grille[0].length;
-    }
-
-    public int obtenirValeurCellule(int ligne, int colonne) {
-        if (estDansLimites(ligne, colonne)) {
-            return grille[ligne][colonne].getType().ordinal();
-        } else {
-            // Gérer l'erreur (par exemple, renvoyer une valeur par défaut)
-            return -1;
-        }
-    }
-
-    public void modifierValeurCellule(int ligne, int colonne, int nouvelleValeur) {
-        if (estDansLimites(ligne, colonne)) {
-            grille[ligne][colonne].setType(TypeCellule.values()[nouvelleValeur]);
-        } else {
-            // Gérer l'erreur (par exemple, afficher un message d'erreur)
-            System.out.println("Erreur : Coordonnées hors limites.");
-        }
-    }
-
-    // ... Ajoutez d'autres méthodes ou fonctionnalités pour la classe Terrain selon vos besoins
-}
+    }}

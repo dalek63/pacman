@@ -4,12 +4,14 @@ public abstract class Personnage {
     private Point position;
     private Direction direction;
 
+    public Personnage(Point position) {
+        this.position = position;
+    }
     public Personnage(Point position, Direction direction) {
         this.position = position;
         this.direction = direction;
     }
 
-    public abstract void deplacer();
 
     public abstract void mourir();
 

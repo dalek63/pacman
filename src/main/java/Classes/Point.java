@@ -1,28 +1,28 @@
 package Classes;
 
 public class Point {
-        private float positionX;
-        private float positionY;
+        private int positionX;
+        private int positionY;
 
-        public Point(float positionX, float positionY) {
+        public Point(int positionX, int positionY) {
             this.positionX = positionX;
             this.positionY = positionY;
         }
 
         // Getters & setters pour positionX et positionY
-        public float getPositionX() {
+        public int getPositionX() {
             return positionX;
         }
 
-        public void setPositionX(float positionX) {
+        public void setPositionX(int positionX) {
             this.positionX = positionX;
         }
 
-        public float getPositionY() {
+        public int getPositionY() {
             return positionY;
         }
 
-        public void setPositionY(float positionY) {
+        public void setPositionY(int positionY) {
             this.positionY = positionY;
         }
 }

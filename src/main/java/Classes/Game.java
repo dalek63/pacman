@@ -81,7 +81,7 @@ public class Game {
                 if (this.terrain.getGrille()[i][j] == 'F') {
                     // Trouvé un fantôme dans la grille, instanciez un objet Fantome
                     Fantome fantome = new Fantome(new Point(i, j),this);
-                    fantomes.add(fantome);
+                    this.fantomes.add(fantome);
                 } else if (this.terrain.getGrille()[i][j] == 'P') {
                     // Trouvé le Pac-Man dans la grille, instanciez un objet Pacman
                     PacMan pacman = new PacMan(new Point(i, j),this);

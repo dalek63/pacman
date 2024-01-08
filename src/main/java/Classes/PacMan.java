@@ -34,12 +34,12 @@ public class PacMan extends Personnage {
         if (vies <= 0) {
             // Game over, logique à implémenter en conséquence
             System.out.println("Game Over");
-            game.finJeu();
+            this.game.finJeu();
             // Réinitialiser la grille
 
         } else {
             System.out.println("Pacman a perdu une vie. Vies restantes : " + vies);
-            game.reinitialiserGrille();
+            this.game.reinitialiserGrille();
         }
     }
 
@@ -94,7 +94,7 @@ public class PacMan extends Personnage {
             perdreVies();
         }
 //        System.out.println("peutSeDeplacer: "+peutSeDeplacer(terrain, direction, positionX, positionY));
-        if (peutSeDeplacer(terrain, direction, positionX, positionY)){
+        if (peutSeDeplacer(this.game.getTerrain(), direction, positionX, positionY)){
             // Déplacer le Pacman dans la direction choisie
             switch (direction) {
                 case 0:

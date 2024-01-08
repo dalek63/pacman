@@ -48,4 +48,6 @@ public class Fruit {
         }
         return points;
     }
+
+
 }

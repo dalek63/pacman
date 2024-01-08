@@ -7,6 +7,8 @@ public class Fantome extends Personnage {
 
     private Game game;
 
+    private char caseEcrasee;
+
 
     public Fantome(Point position, Game game) {
         super(position);
@@ -28,6 +30,7 @@ public class Fantome extends Personnage {
 
         int anciennePositionX = positionX;
         int anciennePositionY = positionY;
+        char ancienContenu = this.game.getTerrain()[anciennePositionX][anciennePositionY];
 
         System.out.println("Postion Fantome "+ position.getPositionX() +" "+position.getPositionY());
 
@@ -35,7 +38,7 @@ public class Fantome extends Personnage {
         do {
             direction = random.nextInt(4);
             System.out.println("doWHile et direction: "+direction);
-        } while (!peutSeDeplacer(terrain, direction, positionX, positionY));
+        } while (!peutSeDeplacer(this.game.getTerrain(), direction, positionX, positionY));
 
         // Déplacer le fantôme dans la direction choisie
         switch (direction) {
@@ -60,9 +63,19 @@ public class Fantome extends Personnage {
                 position.setPositionY(position.getPositionY() - 1);
                 break;
         }
-        // Mettre à jour la grille avec la nouvelle position du fantôme
-        this.game.getTerrain()[anciennePositionX][anciennePositionY] = '.'; // Ancienne position vide
+
+
+/*
+        char nouveauContenu = terrain[position.getPositionX()][position.getPositionY()];
+        if (estUnBonus(nouveauContenu)) {
+            caseEcrasee = nouveauContenu;
+        } else {
+            caseEcrasee = '.'; // Si la nouvelle position n'est pas un bonus, réinitialisez caseEcrasee
+        }
+*/
+        this.game.getTerrain()[position.getPositionX()][position.getPositionY()] = '.';
         this.game.getTerrain()[position.getPositionX()][position.getPositionY()] = 'F'; // Nouvelle position avec le fantôme
+        terrain[anciennePositionX][anciennePositionY] = ancienContenu;   // Restaurer le bonus à l'ancienne position du fantôme
 
         System.out.println("Postion Fantome après maj "+ position.getPositionX() +" "+ position.getPositionY());
 
@@ -96,7 +109,7 @@ public class Fantome extends Personnage {
 
         // Vérifier les limites de la grille
         if (newX < 0 || newX >= this.game.getTerrain()[0].length || newY < 0 || newY >= this.game.getTerrain().length) {
-            System.out.println("Limite de grille "+ direction);
+            System.out.println("Limite de grille " + direction);
             return false; // En dehors de la grille
         }
 
@@ -112,11 +125,22 @@ public class Fantome extends Personnage {
             this.game.getPacMan().perdreVies();
             return true;
         }
+/*
+        if(estUnBonus(this.game.getTerrain()[newX][newY])){
+            caseEcrasee = this.game.getTerrain()[newX][newY];
+            System.out.println("Case écraser "+ caseEcrasee );
+        }
+*/
 
         return true; // Déplacement autorisé
     }
 
+/*
 
+    private boolean estUnBonus(char contenu) {
+        return contenu == 'o' || contenu == 'O' || contenu == 'B' || contenu == 'C' || contenu == 'K';
+    }
+    */
 
     public ModeFantome getMode() {
         return mode;

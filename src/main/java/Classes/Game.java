@@ -24,6 +24,7 @@ public class Game {
     List<SuperBoule> superBoules = new ArrayList<>();
     List<Fruit> fruits = new ArrayList<>();
     ArrayList<Integer> lastDirections = new ArrayList<>();
+    private boolean modeSansMur = false;
 
     public Game() {
         this.terrain =  new Terrain();
@@ -182,5 +183,12 @@ public class Game {
     }
 
     public int getScore() {return score; }
+    public boolean modeSansMurIsActive(){
+        return this.modeSansMur;
+    }
+    public void activeModeSansMur(){
+        this.modeSansMur = true;
+    }
+
 
 }

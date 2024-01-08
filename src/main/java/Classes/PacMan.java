@@ -125,6 +125,8 @@ public class PacMan extends Personnage {
 
             System.out.println("Postion Pacman après maj "+ position.getPositionX() +" "+ position.getPositionY());
         }
+
+        this.game.verifierEtMettreAJourNiveau();
     }
 
     private boolean peutSeDeplacer(char[][] terrain, int direction, int positionX, int positionY) {

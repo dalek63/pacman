@@ -17,8 +17,10 @@ public class Game {
     private List<Fantome> fantomes;
     private int score;
     private boolean started;
+    private int niveauActuel;
+
+
 //    private boolean enCours;
-//    private int niveauActuel;
 
     List<Boule> boules = new ArrayList<>();
     List<SuperBoule> superBoules = new ArrayList<>();
@@ -30,8 +32,8 @@ public class Game {
         this.terrain =  new Terrain();
 //        this.pacMan = pacMan;
         this.fantomes = new ArrayList<>();
-//        this.niveauActuel = 1;
         this.score = 0;
+        this.niveauActuel = 1;
 //        this.enCours = true;
     }
 
@@ -52,11 +54,30 @@ public class Game {
         // Afficher la grille mise à jour (peut être envoyée au front-end)
         afficherGrille(this.terrain.getGrille());
         return this.terrain.getGrille();
+
+
+
+    }
+
+    private void preparerNouveauNiveau() {
+        this.niveauActuel++;
+        this.terrain.changerNiveau(niveauActuel); // Assurez-vous que la méthode `changerNiveau` existe dans la classe Terrain
+        // Réinitialiser les positions de Pac-Man et des fantômes, etc.
+        System.out.println("Bravo, Niveau suivant ! Niveau " + niveauActuel);
+        reinitialiserGrille();
+    }
+
+    public void verifierEtMettreAJourNiveau() {
+        if (toutesLesBoulesMangees()) {
+            System.out.println("Bravo, Niveau suivant !");
+            preparerNouveauNiveau();
+        }
     }
     public void demarrerJeu(){
-        afficherGrille(terrain.getGrille());
+        afficherGrille(this.terrain.getGrille());
         this.started = true;
         initialiserJeu();
+
 
     }
 
@@ -151,7 +172,23 @@ public class Game {
             }
         }
     }
+    private boolean estUnFruit(char caseActuelle) {
+        // Vérifier si le caractère représente un fruit (à adapter selon votre implémentation)
+        return caseActuelle == 'B' || caseActuelle == 'K' || caseActuelle == 'C';
+    }
 
+    private boolean toutesLesBoulesMangees() {
+        // Vérifier si toutes les boules, superboules et fruits ont été mangées
+        for (int i = 0; i < this.terrain.getGrille().length; i++) {
+            for (int j = 0; j < this.terrain.getGrille().length; j++) {
+                char caseActuelle = this.terrain.getGrille()[i][j];
+                if (caseActuelle == 'o' || caseActuelle == 'O' || estUnFruit(caseActuelle)) {
+                    return false; // Il reste des éléments à manger
+                }
+            }
+        }
+        return true; // Tous les éléments ont été mangés
+    }
     public void deplacerFantomes() {
         for (Fantome fantome : this.fantomes) {
             fantome.deplacer(this.terrain.getGrille()); // Appeler la méthode deplacement du fantome

@@ -24,6 +24,7 @@ public class Game {
     List<SuperBoule> superBoules = new ArrayList<>();
     List<Fruit> fruits = new ArrayList<>();
     ArrayList<Integer> lastDirections = new ArrayList<>();
+    private boolean modeSansMur = false;
 
     public Game() {
         this.terrain =  new Terrain();
@@ -81,7 +82,7 @@ public class Game {
                 if (this.terrain.getGrille()[i][j] == 'F') {
                     // Trouvé un fantôme dans la grille, instanciez un objet Fantome
                     Fantome fantome = new Fantome(new Point(i, j),this);
-                    fantomes.add(fantome);
+                    this.fantomes.add(fantome);
                 } else if (this.terrain.getGrille()[i][j] == 'P') {
                     // Trouvé le Pac-Man dans la grille, instanciez un objet Pacman
                     PacMan pacman = new PacMan(new Point(i, j),this);
@@ -183,5 +184,12 @@ public class Game {
 
 
     public int getScore() {return score; }
+    public boolean modeSansMurIsActive(){
+        return this.modeSansMur;
+    }
+    public void activeModeSansMur(){
+        this.modeSansMur = true;
+    }
+
 
 }

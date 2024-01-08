@@ -39,6 +39,15 @@ public class Fantome extends Personnage {
             direction = random.nextInt(4);
             System.out.println("doWHile et direction: "+direction);
         } while (!peutSeDeplacer(this.game.getTerrain(), direction, positionX, positionY));
+        if (this.game.modeSansMurIsActive()) {
+            direction = (random.nextBoolean()) ? 0 : 2; // Choisir aléatoirement entre haut (0) et bas (2)
+        } else {
+            // Choisir une direction aléatoire (0 pour haut, 1 pour droite, 2 pour bas, 3 pour gauche)
+            do {
+                direction = random.nextInt(4);
+                System.out.println("doWHile et direction: " + direction);
+            } while (!peutSeDeplacer(terrain, direction, positionX, positionY));
+        }
 
         // Déplacer le fantôme dans la direction choisie
         switch (direction) {

@@ -33,6 +33,13 @@ public class GameController {
 
         return ResponseEntity.ok(currentGame);
     }
+    //Pour charger la Map avant de lancer le jeu
+    @PostMapping("/load-map")
+    public ResponseEntity<Game> loadMap() {
+        Game currentGame = this.game;
+        return ResponseEntity.ok(currentGame);
+    }
+
     @GetMapping("/test-deploiement-back")
     public String hello() {
         return "Déploiement du back a été réalisé avec succès !";

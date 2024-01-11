@@ -1,14 +1,15 @@
 package Classes;
 public class Terrain {
-    private char[][] grille;
+    private char[][] grilleActuel;
     private char[][] grilleInit;
     private char[][] grilleNiveau2;
     private char[][] grilleNiveau3;
+    private Game game;
 
     public Terrain() {
 
-        grille = new char[][]{
-                {'P', 'o', '.', '.'},
+        grilleActuel = new char[][]{
+                {'P', 'o', 'o', '.'},
                 {'.', '.', '.', '.'},
         };
 
@@ -69,17 +70,11 @@ public class Terrain {
     }
 
     public char[][] getGrille() {
-        return grille;
+        return this.grilleActuel;
     }
 
-    public void setGrille() {
-        switch () {
-            case
-        }
-    }
-
-    public char[][] getGrilleInit() {
-        return grilleInit;
+    public void setGrille(char[][] grille){
+        this.grilleActuel = grille;
     }
 
     // Méthode pour changer la grille en fonction du niveau
@@ -87,16 +82,16 @@ public class Terrain {
         switch (niveau) {
 
             case 2:
-                this.grille = grilleNiveau2;
+                this.grilleActuel = grilleNiveau2;
                 break;
             case 3:
-                this.grille= grilleNiveau3;
+                this.grilleActuel= grilleNiveau3;
                 break;
             // ... autres niveaux ...
             default:
-                // Gestion du cas où le niveau n'est pas défini
                 break;
         }
+    }
+}
 
 
-    }}

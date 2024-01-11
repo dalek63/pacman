@@ -32,11 +32,9 @@ public class PacMan extends Personnage {
         vies--;
 
         if (vies <= 0) {
-            // Game over, logique à implémenter en conséquence
+            // GAME OVER
             System.out.println("Game Over");
-            this.game.finJeu();
-            // Réinitialiser la grille
-
+            this.game.gameOver(); // fin du jeu
         } else {
             System.out.println("Pacman a perdu une vie. Vies restantes : " + vies);
             this.game.reinitialiserGrille();

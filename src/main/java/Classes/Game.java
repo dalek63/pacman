@@ -1,8 +1,6 @@
 package Classes;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +12,11 @@ public class Game {
 
     private Terrain terrain;
     private PacMan pacMan;
-    private List<Fantome> fantomes;
+    private ArrayList<Fantome> fantomes;
     private int score;
     private boolean started;
     private int niveauActuel;
-
-
-//    private boolean enCours;
-
+    private boolean isWin; //True si on a gagne ou false sinon.
     List<Boule> boules = new ArrayList<>();
     List<SuperBoule> superBoules = new ArrayList<>();
     List<Fruit> fruits = new ArrayList<>();
@@ -30,41 +25,40 @@ public class Game {
 
     public Game() {
         this.terrain =  new Terrain();
-//        this.pacMan = pacMan;
         this.fantomes = new ArrayList<>();
-        this.score = 0;
-        this.niveauActuel = 1;
-//        this.enCours = true;
     }
 
 //    public char[][] updateGrid(String direction) {
-    public char[][] updateGrid(int direction) {
+    public void updateGrid(int direction) {
         System.out.println("updateGrid "+ direction);
-        // Mettre à jour la position du Pac-Man en fonction de la direction
-        // on recoit -1 pour la direction si il ne bouge pas sinon 0,1,2 ou 3
+
+        if(this.started){ // si le jeu est toujours en cours
+            /*Mettre à jour la position du Pac-Man en fonction de la direction
+                on recoit -1 pour la direction si il ne bouge pas sinon 0,1,2 ou 3*/
+
         if (direction != -1) {
             pacMan.deplacer(this.terrain.getGrille(), direction);
 //            this.lastDirections.add(direction);
         }
-
 
         // Mettre à jour la position des fantômes
         deplacerFantomes();
 
         // Afficher la grille mise à jour (peut être envoyée au front-end)
         afficherGrille(this.terrain.getGrille());
-        return this.terrain.getGrille();
-
-
-
     }
+}
 
     private void preparerNouveauNiveau() {
-        this.niveauActuel++;
-        this.terrain.changerNiveau(niveauActuel); // Assurez-vous que la méthode `changerNiveau` existe dans la classe Terrain
-        // Réinitialiser les positions de Pac-Man et des fantômes, etc.
-        System.out.println("Bravo, Niveau suivant ! Niveau " + niveauActuel);
-        reinitialiserGrille();
+        this.checkWin(); // verifie si on a win
+        if(!this.isWin){ // sinon on continue
+            this.niveauActuel++;
+            this.terrain.changerNiveau(niveauActuel);
+            initialiserFruitEtBoule();
+            initialiserFantomesEtPacman();
+            // Réinitialiser les positions de Pac-Man et des fantômes, etc.
+            System.out.println("Bravo, Niveau suivant ! Niveau " + niveauActuel);
+        }
     }
 
     public void verifierEtMettreAJourNiveau() {
@@ -76,9 +70,8 @@ public class Game {
     public void demarrerJeu(){
         afficherGrille(this.terrain.getGrille());
         this.started = true;
+
         initialiserJeu();
-
-
     }
 
     public void finJeu(){
@@ -86,7 +79,7 @@ public class Game {
     }
 
 
-    public void reinitialiserGrille() {
+    public void reinitialiserGrille() { // Réinitialise la map d'origine
         this.terrain = new Terrain();
         initialiserFruitEtBoule(); // TO DO reinitiliser et save les manger
         reinitialiserFantomesEtPacman();
@@ -95,7 +88,15 @@ public class Game {
     public void initialiserJeu(){
         initialiserFruitEtBoule();
         initialiserFantomesEtPacman();
+        initParametre();
     }
+
+    public void initParametre(){
+        this.isWin = false;
+        this.setScore(0);
+        this.niveauActuel = 1;
+    }
+
 
     private void initialiserFantomesEtPacman() {
         for (int i = 0; i < this.terrain.getGrille().length; i++) {
@@ -191,6 +192,7 @@ public class Game {
     }
     public void deplacerFantomes() {
         for (Fantome fantome : this.fantomes) {
+            System.out.println("MOUVVVVVV");
             fantome.deplacer(this.terrain.getGrille()); // Appeler la méthode deplacement du fantome
         }
         System.out.println("FINISH depalcerFantomes");
@@ -207,20 +209,27 @@ public class Game {
     public char[][] getTerrain(){
         return this.terrain.getGrille();
     }
+
     public boolean isStarted() {
-        return started;
+        return this.started;
     }
 
     public PacMan getPacMan(){
         return this.pacMan;
     }
 
+    public ArrayList<Fantome> getFantomes(){
+        return this.fantomes;
+    }
+
     public void setScore(int pointGagne){
         this.score+= pointGagne;
     }
 
-
     public int getScore() {return score; }
+
+    public int getNiveauActuel() {return niveauActuel;}
+
     public boolean modeSansMurIsActive(){
         return this.modeSansMur;
     }
@@ -228,5 +237,24 @@ public class Game {
         this.modeSansMur = true;
     }
 
+    // Vérifie si on a gagne la partie, on l'appel lorsqu'on prépare un nouveau niveau
+    public void checkWin(){ //TO DO win par niveau ?
+        if (this.niveauActuel == 3 && this.toutesLesBoulesMangees()){
+            this.isWin = true;
+            this.started =false;
+        }
+    }
 
+    public void gameOver(){
+        this.isWin = false;
+        this.started = false;
+    }
+
+
+    public String getResult() { // Retouren si on a gagner ou perdu la partie
+        if (this.started && !this.isWin) { // si le jeu est lancer
+            return "Partie en cours";
+        }
+        return this.isWin? "WIN" : "Game Over !";
+    }
 }

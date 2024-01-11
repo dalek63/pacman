@@ -44,7 +44,7 @@ public class Game {
         // Mettre à jour la position des fantômes
         deplacerFantomes();
 
-        // Afficher la grille mise à jour (peut être envoyée au front-end)
+        // Afficher la grille mise à jour
         afficherGrille(this.terrain.getGrille());
     }
 }
@@ -192,10 +192,8 @@ public class Game {
     }
     public void deplacerFantomes() {
         for (Fantome fantome : this.fantomes) {
-            System.out.println("MOUVVVVVV");
             fantome.deplacer(this.terrain.getGrille()); // Appeler la méthode deplacement du fantome
         }
-        System.out.println("FINISH depalcerFantomes");
     }
 
     public void afficherGrille(char[][] grille) {

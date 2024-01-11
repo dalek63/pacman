@@ -92,7 +92,7 @@ public class PacMan extends Personnage {
             perdreVies();
         }
 //        System.out.println("peutSeDeplacer: "+peutSeDeplacer(terrain, direction, positionX, positionY));
-        if (peutSeDeplacer(this.game.getTerrain(), direction, positionX, positionY)){
+        if (peutSeDeplacer(terrain, direction, positionX, positionY)){
             // Déplacer le Pacman dans la direction choisie
             switch (direction) {
                 case 0:
@@ -118,8 +118,8 @@ public class PacMan extends Personnage {
             }
             System.out.println("MAJ POSITION");
             // Mettre à jour la grille avec la nouvelle position du pacman
-            terrain[anciennePositionX][anciennePositionY] = '.'; // Ancienne position vide
-            terrain[position.getPositionX()][position.getPositionY()] = 'P'; // Nouvelle position avec le Pacman
+            this.game.getTerrain()[anciennePositionX][anciennePositionY] = '.'; // Ancienne position vide
+            this.game.getTerrain()[position.getPositionX()][position.getPositionY()] = 'P'; // Nouvelle position avec le Pacman
 
             System.out.println("Postion Pacman après maj "+ position.getPositionX() +" "+ position.getPositionY());
         }
@@ -146,21 +146,22 @@ public class PacMan extends Personnage {
                 newY--; // Déplacement vers la gauche
                 break;
             default:
+                System.out.println("Direction non Valide "+direction);
                 return false; // Direction non valide
         }
 
         // Vérifier les limites de la grille
-        if (newX < 0 || newX >= this.game.getTerrain()[0].length || newY < 0 || newY >= this.game.getTerrain().length) {
+        if (newX < 0 || newX >= terrain[0].length || newY < 0 || newY >= terrain.length) {
             System.out.println("Pacman Limite de grille " + direction);
             return false; // En dehors de la grille
         }
 
         // Vérifier s'il y a un mur à la nouvelle position
-        if (this.game.getTerrain()[newX][newY] == 'M') {
+        if (terrain[newX][newY] == 'M') {
             System.out.println("Collision avec un Mur");
             return false; // Mur présent
         }
-        if (this.game.getTerrain()[newX][newY] == 'F') {
+        if (terrain[newX][newY] == 'F') {
             // Collision avec un fantôme, perdre une vie
             System.out.println("Collision avec un Fantome");
             this.game.getPacMan().perdreVies();
@@ -168,7 +169,7 @@ public class PacMan extends Personnage {
         }
 
         // Vérifier s'il y a une boule ou une super boule à la nouvelle position
-        if (this.game.getTerrain()[newX][newY] == 'o') {
+        if (terrain[newX][newY] == 'o') {
             this.game.getPacMan().mangerBoule();
             this.game.getTerrain()[newX][newY] = '.';
             System.out.println("Boule!! : + 25 points");
@@ -176,7 +177,7 @@ public class PacMan extends Personnage {
             return true;
         }
 
-        if (this.game.getTerrain()[newX][newY] == 'O') {
+        if (terrain[newX][newY] == 'O') {
             // Manger la super boule, augmenter le score de 50 points
             this.game.getPacMan().mangerSuperBoule();
             this.game.getTerrain()[newX][newY] = '.';
@@ -185,7 +186,7 @@ public class PacMan extends Personnage {
 
             return true;
         }
-        if (this.game.getTerrain()[newX][newY] == 'C' || this.game.getTerrain()[newX][newY] == 'B' || this.game.getTerrain()[newX][newY] == 'K') {
+        if (terrain[newX][newY] == 'C' || terrain[newX][newY] == 'B' || terrain[newX][newY] == 'K') {
             Fruit fruit = trouverFruit(newX, newY);
             if (fruit != null) {
                 this.game.getPacMan().mangerFruit(fruit);

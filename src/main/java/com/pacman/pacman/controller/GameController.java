@@ -44,13 +44,14 @@ public class GameController {
     public String hello() {
         return "Déploiement du back a été réalisé avec succès !";
     }
+
     @PostMapping("/update-grid")
     public ResponseEntity<Game> updateGrid(@RequestBody String directionData) {
         Game currentGame = this.game;
 
         DirectionWrapper directionConverter = new DirectionWrapper(directionData);
 
-        System.out.println("direction data "+directionData);
+        System.out.println("FRONT : Direction recu = "+directionData);
         // Mettre à jour la grille avec la nouvelle direction
         currentGame.updateGrid(directionConverter.getDirection());
         System.out.println("direction recu convertit "+directionConverter.getDirection());

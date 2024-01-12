@@ -46,14 +46,16 @@ public class Game {
 
         // Afficher la grille mise à jour
         afficherGrille(this.terrain.getGrille());
-    }
+    }else{
+        System.out.println("FIN DU JEU Valeur de Started"+this.started);
+        }
 }
 
     private void preparerNouveauNiveau() {
         this.checkWin(); // verifie si on a win
         if(!this.isWin){ // sinon on continue
             this.niveauActuel++;
-            this.terrain.changerNiveau(niveauActuel);
+            this.terrain.changerNiveau(niveauActuel); // Modifie le terrain
             initialiserFruitEtBoule();
             initialiserFantomesEtPacman();
             // Réinitialiser les positions de Pac-Man et des fantômes, etc.
@@ -63,7 +65,6 @@ public class Game {
 
     public void verifierEtMettreAJourNiveau() {
         if (toutesLesBoulesMangees()) {
-            System.out.println("Bravo, Niveau suivant !");
             preparerNouveauNiveau();
         }
     }
@@ -181,9 +182,9 @@ public class Game {
     private boolean toutesLesBoulesMangees() {
         // Vérifier si toutes les boules, superboules et fruits ont été mangées
         for (int i = 0; i < this.terrain.getGrille().length; i++) {
-            for (int j = 0; j < this.terrain.getGrille().length; j++) {
+            for (int j = 0; j < this.terrain.getGrille()[i].length; j++) {
                 char caseActuelle = this.terrain.getGrille()[i][j];
-                if (caseActuelle == 'o' || caseActuelle == 'O' || estUnFruit(caseActuelle)) {
+                if (caseActuelle == 'o' || caseActuelle == 'O') {
                     return false; // Il reste des éléments à manger
                 }
             }

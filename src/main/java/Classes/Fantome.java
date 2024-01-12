@@ -117,7 +117,7 @@ public class Fantome extends Personnage {
         }
 
         // Vérifier les limites de la grille
-        if (newX < 0 || newX >= this.game.getTerrain()[0].length || newY < 0 || newY >= this.game.getTerrain().length) {
+        if (newX < 0 || newX >= this.game.getTerrain()[0].length-1 || newY < 0 || newY >= this.game.getTerrain().length+1) {
             System.out.println("Limite de grille " + direction);
             return false; // En dehors de la grille
         }

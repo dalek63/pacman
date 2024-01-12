@@ -10,7 +10,8 @@ public class Terrain {
 
         grilleActuel = new char[][]{
                 {'P', 'o', 'o', '.'},
-                {'.', '.', '.', '.'},
+                {'.', '.', '.', 'O'},
+                {'.', '.', '.', 'O'},
         };
 
         grilleInit = new char[][] {

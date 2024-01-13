@@ -34,11 +34,16 @@ public class Fantome extends Personnage {
 
         System.out.println("Postion Fantome "+ position.getPositionX() +" "+position.getPositionY());
 
-        // Choisir une direction aléatoire (0 pour haut, 1 pour droite, 2 pour bas, 3 pour gauche)
+//         Choisir une direction aléatoire (0 pour haut, 1 pour droite, 2 pour bas, 3 pour gauche)
         do {
              direction = random.nextInt(4);
-            System.out.println("doWHile et direction: "+direction);
+            System.out.println("Direction aléatoirement choisi: "+direction);
         } while (!peutSeDeplacer(terrain, direction, positionX, positionY));
+
+//            direction = random.nextInt(4);
+//            System.out.println("Direction aléatoirement choisi: "+direction);
+//            if(!peutSeDeplacer(terrain, direction, positionX, positionY)){
+
 //        if (this.game.modeSansMurIsActive()) {
 //            direction = (random.nextBoolean()) ? 0 : 2; // Choisir aléatoirement entre haut (0) et bas (2)
 //        } else {
@@ -117,8 +122,13 @@ public class Fantome extends Personnage {
         }
 
         // Vérifier les limites de la grille
-        if (newX < 0 || newX >= this.game.getTerrain()[0].length-1 || newY < 0 || newY >= this.game.getTerrain().length+1) {
-            System.out.println("Limite de grille " + direction);
+        if (newX < 0 || newX >= this.game.getTerrain().length || newY < 0 || newY >= this.game.getTerrain()[0].length) {
+            System.out.println("Fantome a atteint la limite de grille " + direction);
+            System.out.println("Valeur de NewX = "+newX);
+            System.out.println("TabX valeur = "+this.game.getTerrain()[0].length);
+            System.out.println("Valeur de NewY = "+newY);
+            System.out.println("TabY valeur = "+this.game.getTerrain().length);
+
             return false; // En dehors de la grille
         }
 

@@ -1,5 +1,6 @@
 package Classes;
 
+import javax.swing.text.Position;
 import java.util.Random;
 
 public class PacMan extends Personnage {
@@ -131,6 +132,7 @@ public class PacMan extends Personnage {
         // Nouvelles coordonnées après le déplacement
         int newX = positionX;
         int newY = positionY;
+        System.out.println("POSITION X "+positionX+" POSITION Y "+ positionY);
 
         switch (direction) {
             case 0:
@@ -151,38 +153,12 @@ public class PacMan extends Personnage {
         }
 
         // Vérifier les limites de la grille
-        if (newX < 0 || newX >= terrain[0].length-1 || newY < 0 || newY >= this.game.getTerrain().length+1) {
-            System.out.println("Pacman Limite de grille " + direction+" "+"NextX: "+newX+"NextY "+newY);
+        if (newX < 0 || newX >= terrain.length || newY < 0 || newY >= terrain[0].length) {
+            System.out.println("Pacman Limite de grille " + direction+" "+"NextX: "+newX+" NextY "+newY);
             System.out.println("Taille Tab X "+terrain[0].length+" "+"Taille Tab Y "+terrain.length);
             return false; // En dehors de la grille
         }
 
-//        if (newX < 0) {
-//            System.out.println("1 newX < 0");
-//            System.out.println("Pacman Limite de grille " + direction+" "+"NextX: "+newX+"NextY "+newY);
-//            System.out.println("Taille Tab X "+terrain[0].length+" "+"Taille Tab Y "+terrain.length);
-//            return false; // En dehors de la grille
-//        }
-//
-//        if ( newX >= terrain[0].length-1) {
-//            System.out.println("2 newX >= terrain[0].length-1");
-//            System.out.println("Pacman Limite de grille " + direction+" "+"NextX: "+newX+"NextY "+newY);
-//            System.out.println("Taille Tab X "+terrain[0].length+" "+"Taille Tab Y "+terrain.length);
-//            return false; // En dehors de la grille
-//        }
-//        if ( newY < 0 ) {
-//            System.out.println("3 newY < 0");
-//            System.out.println("Pacman Limite de grille " + direction+" "+"NextX: "+newX+"NextY "+newY);
-//            System.out.println("Taille Tab X "+terrain[0].length+" "+"Taille Tab Y "+terrain.length);
-//            return false; // En dehors de la grille
-//        }
-//        if (newY >= terrain.length-1) {
-//            int test = terrain.length-1;
-//            System.out.println("4 newY >= terrain.length-1 "+test);
-//            System.out.println("Pacman Limite de grille " + direction+" "+"NextX: "+newX+"NextY "+newY);
-//            System.out.println("Taille Tab X "+terrain[0].length+" "+"Taille Tab Y "+terrain.length);
-//            return false; // En dehors de la grille
-//        }
 
         // Vérifier s'il y a un mur à la nouvelle position
         if (terrain[newX][newY] == 'M') {

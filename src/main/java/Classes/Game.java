@@ -17,6 +17,7 @@ public class Game {
     private boolean started;
     private int niveauActuel;
     private boolean isWin; //True si on a gagne ou false sinon.
+    private String result;
     List<Boule> boules = new ArrayList<>();
     List<SuperBoule> superBoules = new ArrayList<>();
     List<Fruit> fruits = new ArrayList<>();
@@ -48,6 +49,7 @@ public class Game {
         afficherGrille(this.terrain.getGrille());
     }else{
         System.out.println("FIN DU JEU Valeur de Started"+this.started);
+        this.initialiserJeu();
         }
 }
 
@@ -80,8 +82,9 @@ public class Game {
     }
 
 
-    public void reinitialiserGrille() { // Réinitialise la map d'origine
+    public void reinitialiserGrille() {
         this.terrain = new Terrain();
+        this.terrain.setInitGrille(); // Réinitialise la map d'origine
         initialiserFruitEtBoule(); // TO DO reinitiliser et save les manger
         reinitialiserFantomesEtPacman();
     }
@@ -241,19 +244,27 @@ public class Game {
         if (this.niveauActuel == 3 && this.toutesLesBoulesMangees()){
             this.isWin = true;
             this.started =false;
+            this.setResult("WIN");
         }
     }
 
     public void gameOver(){
         this.isWin = false;
         this.started = false;
+        this.setResult("GAMEOVER");
     }
-
 
     public String getResult() { // Retouren si on a gagner ou perdu la partie
         if (this.started && !this.isWin) { // si le jeu est lancer
             return "Partie en cours";
         }
-        return this.isWin? "WIN" : "Game Over !";
+        if(!this.started && this.score == 0){
+            return "No Start";
+        }
+        return this.result;
+    }
+
+    public void setResult(String res){
+        this.result = res;
     }
 }

@@ -37,6 +37,7 @@ public class GameController {
     @PostMapping("/load-map")
     public ResponseEntity<Game> loadMap() {
         Game currentGame = this.game;
+        currentGame.initialiserJeu();
         return ResponseEntity.ok(currentGame);
     }
 

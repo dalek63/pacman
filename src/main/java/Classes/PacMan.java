@@ -162,12 +162,12 @@ public class PacMan extends Personnage {
 
         // Vérifier s'il y a un mur à la nouvelle position
         if (terrain[newX][newY] == 'M') {
-            System.out.println("Collision avec un Mur");
+            System.out.println("PacMan collision avec un Mur");
             return false; // Mur présent
         }
         if (terrain[newX][newY] == 'F') {
             // Collision avec un fantôme, perdre une vie
-            System.out.println("Collision avec un Fantome");
+            System.out.println("PacMan collision avec un Fantome");
             this.game.getPacMan().perdreVies();
             return false;
         }
@@ -176,7 +176,7 @@ public class PacMan extends Personnage {
         if (terrain[newX][newY] == 'o') {
             this.game.getPacMan().mangerBoule();
             this.game.getTerrain()[newX][newY] = '.';
-            System.out.println("Boule!! : + 25 points");
+            System.out.println("PacMan Boule: + 25 points");
 
             return true;
         }
@@ -185,7 +185,7 @@ public class PacMan extends Personnage {
             // Manger la super boule, augmenter le score de 50 points
             this.game.getPacMan().mangerSuperBoule();
             this.game.getTerrain()[newX][newY] = '.';
-            System.out.println("SuperBoule!! : + 50 points");
+            System.out.println("PacMan SuperBoule: + 50 points");
 
 
             return true;

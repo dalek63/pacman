@@ -15,9 +15,9 @@ public class Game {
     private ArrayList<Fantome> fantomes;
     private int score;
     private boolean started;
-    private int niveauActuel;
+    private int niveauActuel = 1;
     private boolean isWin; //True si on a gagne ou false sinon.
-    private String result;
+    private String result = "No Start";
     List<Boule> boules = new ArrayList<>();
     List<SuperBoule> superBoules = new ArrayList<>();
     List<Fruit> fruits = new ArrayList<>();
@@ -29,7 +29,6 @@ public class Game {
         this.fantomes = new ArrayList<>();
     }
 
-//    public char[][] updateGrid(String direction) {
     public void updateGrid(int direction) {
         System.out.println("updateGrid "+ direction);
 
@@ -48,8 +47,8 @@ public class Game {
         // Afficher la grille mise à jour
         afficherGrille(this.terrain.getGrille());
     }else{
-        System.out.println("FIN DU JEU Valeur de Started"+this.started);
-        this.initialiserJeu();
+        System.out.println("FIN DU JEU Valeur de Started "+this.started);
+        //this.initialiserJeu();
         }
 }
 
@@ -71,17 +70,17 @@ public class Game {
         }
     }
     public void demarrerJeu(){
+        System.out.println("START GAME");
         afficherGrille(this.terrain.getGrille());
         this.started = true;
-
-        initialiserJeu();
+        //initialiserJeu();
     }
 
     public void finJeu(){
         this.started = false ;
     }
 
-
+// TO DO Creer un enum de map qui est constant pour réinit la grille du niveau en cours quand on perd une vie
     public void reinitialiserGrille() {
         this.terrain = new Terrain();
         this.terrain.setInitGrille(); // Réinitialise la map d'origine
@@ -90,15 +89,20 @@ public class Game {
     }
 
     public void initialiserJeu(){
+        System.out.println("INIT JEU");
+        initParametre();
         initialiserFruitEtBoule();
         initialiserFantomesEtPacman();
-        initParametre();
+
     }
 
-    public void initParametre(){
+    public void initParametre(){ // PARAM INIT JEU
+        System.out.println("INIT PARAM");
         this.isWin = false;
-        this.setScore(0);
+        this.score = 0;
         this.niveauActuel = 1;
+        this.terrain.setInitGrille();
+
     }
 
 
@@ -109,6 +113,7 @@ public class Game {
                     // Trouvé un fantôme dans la grille, instanciez un objet Fantome
                     Fantome fantome = new Fantome(new Point(i, j),this);
                     this.fantomes.add(fantome);
+                    System.out.println("INIT FANTOME "+this.fantomes.toString());
                 } else if (this.terrain.getGrille()[i][j] == 'P') {
                     // Trouvé le Pac-Man dans la grille, instanciez un objet Pacman
                     PacMan pacman = new PacMan(new Point(i, j),this);
@@ -259,7 +264,7 @@ public class Game {
             return "Partie en cours";
         }
         if(!this.started && this.score == 0){
-            return "No Start";
+            return "NO START";
         }
         return this.result;
     }

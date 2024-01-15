@@ -27,7 +27,7 @@ public class Fantome extends Personnage {
         Point position = getPosition();
         int positionX = position.getPositionX();
         int positionY = position.getPositionY();
-
+        int directionSave = 5;
         int anciennePositionX = positionX;
         int anciennePositionY = positionY;
         char ancienContenu = this.game.getTerrain()[anciennePositionX][anciennePositionY];
@@ -36,7 +36,9 @@ public class Fantome extends Personnage {
 
 //         Choisir une direction aléatoire (0 pour haut, 1 pour droite, 2 pour bas, 3 pour gauche)
         do {
-             direction = random.nextInt(4);
+
+            direction = random.nextInt(4);
+             directionSave = direction;
             System.out.println("Direction aléatoirement choisi: "+direction);
         } while (!peutSeDeplacer(terrain, direction, positionX, positionY));
 

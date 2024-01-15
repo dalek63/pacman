@@ -92,8 +92,9 @@ public class Terrain {
         return this.grilleActuel;
     }
 
-    public void setInitGrille(){
+    public void setInitGrille(){ // Permet de remettre la grille initial
         this.grilleActuel = this.grilleInit;
+        System.out.println("INIT GRILLE");
     }
 
     // Méthode pour changer la grille en fonction du niveau
@@ -102,9 +103,11 @@ public class Terrain {
 
             case 2:
                 this.grilleActuel = grilleNiveau2;
+                System.out.println("SET GRILLE : Niveau 2");
                 break;
             case 3:
                 this.grilleActuel= grilleNiveau3;
+                System.out.println("SET GRILLE : Niveau 3");
                 break;
             // ... autres niveaux ...
             default:

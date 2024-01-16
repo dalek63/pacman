@@ -59,7 +59,7 @@ public class GameController {
 //        System.out.println("direction recu convertit "+directionConverter.getDirection());
 //        return ResponseEntity.ok(currentGame);
 //    }
-
+    @CrossOrigin
     @PostMapping("/update-grid-fantome")
     public ResponseEntity<Game> updateGridFantome() {
         Game currentGame = this.game;
@@ -70,6 +70,7 @@ public class GameController {
         return ResponseEntity.ok(currentGame);
     }
 
+    @CrossOrigin
     @PostMapping("/update-grid-pacman")
     public ResponseEntity<Game> updateGridPacman(@RequestBody String directionData) {
         Game currentGame = this.game;
@@ -83,40 +84,4 @@ public class GameController {
         return ResponseEntity.ok(currentGame);
     }
 
-
-
-    //    @GetMapping("/play")
-//    public String playGame(Model model) {
-//        // Récupérer l'objet Game depuis la session
-//        Game currentGame = (Game) model.getAttribute("game");
-//        assert currentGame != null;
-//        if (!currentGame.isStarted()) {
-//            currentGame.demarrerJeu();
-//            // Vous pouvez également effectuer d'autres initialisations si nécessaire
-//        }
-//
-//        return "game/play";
-//    }
-//
-//    @PostMapping("/update-grid")
-//    public String updateGrid(@RequestParam("direction") int direction, Model model) {
-//        // Récupérer l'objet Game depuis la session
-//        Game currentGame = (Game) model.getAttribute("game");
-//
-//        // Mettre à jour la grille avec la direction
-//        currentGame.updateGrid(direction);
-//
-//        // Vous pouvez renvoyer la vue avec les informations mises à jour
-//
-//        return "game/play";
-//    }
-
-//    @GetMapping("/current-game")
-//    public ResponseEntity<Game> getCurrentGame() {
-//        if (game == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        }
-//
-//        return ResponseEntity.ok(game);
-//    }
 }

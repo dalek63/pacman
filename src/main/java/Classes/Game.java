@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 //@Scope(value = WebApplicationContext.SCOPE_SESSION)
@@ -23,8 +24,9 @@ public class Game {
     List<Fruit> fruits = new ArrayList<>();
     ArrayList<Integer> lastDirections = new ArrayList<>();
     private boolean modeSansMur = false;
-
     private boolean collisionEnCours = false;
+
+    private String modeJeu;
 
 
     public Game() {
@@ -104,7 +106,13 @@ public class Game {
 
     public void verifierEtMettreAJourNiveau() {
         if (toutesLesBoulesMangees()) {
-            preparerNouveauNiveau();
+            if(Objects.equals(this.modeJeu, "MULTI")){
+                preparerNouveauNiveau();
+            }else if(Objects.equals(this.modeJeu,"CLASSIC")){
+                this.isWin = true;
+                this.started =false;
+                this.setResult("WIN");
+            }
         }
     }
     public void demarrerJeu(){
@@ -300,6 +308,7 @@ public class Game {
 
     // Vérifie si on a gagne la partie, on l'appel lorsqu'on prépare un nouveau niveau
     public void checkWin(){ //TO DO win par niveau ?
+
         if (this.niveauActuel == 3 && this.toutesLesBoulesMangees()){
             this.isWin = true;
             this.started =false;
@@ -321,6 +330,14 @@ public class Game {
             return "NO START";
         }
         return this.result;
+    }
+
+    public String getModeJeu(){
+        return this.modeJeu;
+    }
+
+    public void setModeJeu(String mode){
+        this.modeJeu = mode;
     }
 
     public void setResult(String res){

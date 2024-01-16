@@ -36,15 +36,16 @@ public class GameController {
     }
     //Pour charger la Map avant de lancer le jeu
     @PostMapping("/load-map")
-    public ResponseEntity<Game> loadMap() {
+    public ResponseEntity<Game> loadMap(@RequestBody String modeJeu) {
         Game currentGame = this.game;
+        currentGame.setModeJeu(modeJeu);
         currentGame.initialiserJeu();
         return ResponseEntity.ok(currentGame);
     }
 
     @GetMapping("/test-deploiement-back")
     public String hello() {
-        return "Déploiement du back a été réalisé avec succès !";
+        return "Déploiement du back a été réalisé avec succès !V2";
     }
 
 //    @PostMapping("/update-grid")

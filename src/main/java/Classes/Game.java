@@ -32,32 +32,63 @@ public class Game {
         this.fantomes = new ArrayList<>();
     }
 
-    public void updateGrid(int direction) {
-        System.out.println("UPDATEGRID "+ direction);
+//    public void updateGrid(int direction) {
+//        System.out.println("UPDATEGRID "+ direction);
+//
+//        if(this.started && !this.collisionEnCours){ // si le jeu est toujours en cours
+//            /*Mettre à jour la position du Pac-Man en fonction de la direction
+//                on recoit -1 pour la direction si il ne bouge pas sinon 0,1,2 ou 3*/
+//
+//        if (direction != -1) {
+//            pacMan.deplacer(this.terrain.getGrille(), direction);
+////            this.lastDirections.add(direction);
+//        }
+//
+//        // Mettre à jour la position des fantômes
+//        if(!this.collisionEnCours){
+//            System.out.println("deplacer FANTOMEEEE");
+//            deplacerFantomes();
+//        }
+//
+//        // Afficher la grille mise à jour
+//        afficherGrille(this.terrain.getGrille());
+//        }else
+//            System.out.println("Collision en cours");
+//        if (!this.started){
+//            System.out.println("FIN DU JEU Valeur de Started "+this.started);
+//        }
+//    }
 
-        if(this.started && !this.collisionEnCours){ // si le jeu est toujours en cours
-            /*Mettre à jour la position du Pac-Man en fonction de la direction
-                on recoit -1 pour la direction si il ne bouge pas sinon 0,1,2 ou 3*/
 
-        if (direction != -1) {
-            pacMan.deplacer(this.terrain.getGrille(), direction);
-//            this.lastDirections.add(direction);
-        }
+    public void updateGridPacman(int direction) {
+        System.out.println("UPDATEGRIDFANTOME " + direction);
 
-        // Mettre à jour la position des fantômes
-        if(!this.collisionEnCours){
-            System.out.println("deplacer FANTOMEEEE");
-            deplacerFantomes();
-        }
+        if (this.started && !this.collisionEnCours) {
+        /* Mettre à jour la position du Pac-Man en fonction de la direction
+           On reçoit -1 pour la direction si il ne bouge pas sinon 0,1,2 ou 3 */
+            if (direction != -1) {
+                pacMan.deplacer(this.terrain.getGrille(), direction);
+                // Afficher la grille mise à jour avec le déplacement du Pac-Man
+                afficherGrille(this.terrain.getGrille());
+            }
 
-        // Afficher la grille mise à jour
-        afficherGrille(this.terrain.getGrille());
-        }else
-            System.out.println("Collision en cours");
-        if (!this.started){
-            System.out.println("FIN DU JEU Valeur de Started "+this.started);
+            // Afficher la grille mise à jour
+            afficherGrille(this.terrain.getGrille());
+        } else {
+            System.out.println("Collision en cours ou fin du jeu");
         }
     }
+
+    public void updateFantomes() {
+        if (this.started && !this.collisionEnCours) {
+            deplacerFantomes();
+            // Afficher la grille mise à jour après le déplacement des fantômes
+            afficherGrille(this.terrain.getGrille());
+        } else {
+            System.out.println("Collision en cours ou fin du jeu");
+        }
+    }
+
 
     private void preparerNouveauNiveau() {
         this.checkWin(); // verifie si on a win

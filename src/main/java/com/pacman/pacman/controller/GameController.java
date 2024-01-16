@@ -47,15 +47,38 @@ public class GameController {
         return "Déploiement du back a été réalisé avec succès !";
     }
 
-    @PostMapping("/update-grid")
-    public ResponseEntity<Game> updateGrid(@RequestBody String directionData) {
+//    @PostMapping("/update-grid")
+//    public ResponseEntity<Game> updateGridFantome(@RequestBody String directionData) {
+//        Game currentGame = this.game;
+//
+//        DirectionWrapper directionConverter = new DirectionWrapper(directionData);
+//
+//        System.out.println("FRONT : Direction recu = "+directionData);
+//        // Mettre à jour la grille avec la nouvelle direction
+//        currentGame.updateGrid(directionConverter.getDirection());
+//        System.out.println("direction recu convertit "+directionConverter.getDirection());
+//        return ResponseEntity.ok(currentGame);
+//    }
+
+    @PostMapping("/update-grid-fantome")
+    public ResponseEntity<Game> updateGridFantome() {
         Game currentGame = this.game;
 
+        System.out.println("UPADATE FANTOME");
+        // Mettre à jour la grille avec la nouvelle direction
+        currentGame.updateFantomes();
+        return ResponseEntity.ok(currentGame);
+    }
+
+    @PostMapping("/update-grid-pacman")
+    public ResponseEntity<Game> updateGridPacman(@RequestBody String directionData) {
+        Game currentGame = this.game;
+        System.out.println("UPADATE PACMAN");
         DirectionWrapper directionConverter = new DirectionWrapper(directionData);
 
         System.out.println("FRONT : Direction recu = "+directionData);
         // Mettre à jour la grille avec la nouvelle direction
-        currentGame.updateGrid(directionConverter.getDirection());
+        currentGame.updateGridPacman(directionConverter.getDirection());
         System.out.println("direction recu convertit "+directionConverter.getDirection());
         return ResponseEntity.ok(currentGame);
     }

@@ -123,16 +123,16 @@ public class Fantome extends Personnage {
                 return false; // Direction non valide
         }
 
-        // Vérifier les limites de la grille
-        if (newX < 0 || newX >= this.game.getTerrain().length || newY < 0 || newY >= this.game.getTerrain()[0].length) {
-            System.out.println("Fantome a atteint la limite de grille " + direction);
-            System.out.println("Valeur de NewX = "+newX);
-            System.out.println("TabX valeur = "+terrain[0].length);
-            System.out.println("Valeur de NewY = "+newY);
-            System.out.println("TabY valeur = "+terrain.length);
-
-            return false; // En dehors de la grille
-        }
+//        // Vérifier les limites de la grille
+//        if (newX < 0 || newX >= this.game.getTerrain().length || newY < 0 || newY >= this.game.getTerrain()[0].length) {
+//            System.out.println("Fantome a atteint la limite de grille " + direction);
+//            System.out.println("Valeur de NewX = "+newX);
+//            System.out.println("TabX valeur = "+terrain[0].length);
+//            System.out.println("Valeur de NewY = "+newY);
+//            System.out.println("TabY valeur = "+terrain.length);
+//
+//            return false; // En dehors de la grille
+//        }
 
         // Vérifier s'il y a un mur à la nouvelle position
         if (terrain[newX][newY] == 'M') {

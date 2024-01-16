@@ -24,15 +24,18 @@ public class Game {
     ArrayList<Integer> lastDirections = new ArrayList<>();
     private boolean modeSansMur = false;
 
+    private boolean collisionEnCours = false;
+
+
     public Game() {
         this.terrain =  new Terrain();
         this.fantomes = new ArrayList<>();
     }
 
     public void updateGrid(int direction) {
-        System.out.println("updateGrid "+ direction);
+        System.out.println("UPDATEGRID "+ direction);
 
-        if(this.started){ // si le jeu est toujours en cours
+        if(this.started && !this.collisionEnCours){ // si le jeu est toujours en cours
             /*Mettre à jour la position du Pac-Man en fonction de la direction
                 on recoit -1 pour la direction si il ne bouge pas sinon 0,1,2 ou 3*/
 
@@ -42,15 +45,19 @@ public class Game {
         }
 
         // Mettre à jour la position des fantômes
-        deplacerFantomes();
+        if(!this.collisionEnCours){
+            System.out.println("deplacer FANTOMEEEE");
+            deplacerFantomes();
+        }
 
         // Afficher la grille mise à jour
         afficherGrille(this.terrain.getGrille());
-    }else{
-        System.out.println("FIN DU JEU Valeur de Started "+this.started);
-        //this.initialiserJeu();
+        }else
+            System.out.println("Collision en cours");
+        if (!this.started){
+            System.out.println("FIN DU JEU Valeur de Started "+this.started);
         }
-}
+    }
 
     private void preparerNouveauNiveau() {
         this.checkWin(); // verifie si on a win
@@ -83,6 +90,8 @@ public class Game {
 
     public void reinitialiserGrille() {
         reinitialiserFantomesEtPacman();
+        this.collisionEnCours = false;
+        //initialiserFantomesEtPacman();
     }
 
     public void initialiserJeu(){
@@ -127,22 +136,27 @@ public class Game {
 
     private void reinitialiserFantomesEtPacman() {
         System.out.println("Start REINIT");
-        System.out.println("PACMAN REINIT "+this.pacMan.getVies());
 
-        for (int i = 0; i < this.terrain.getGrille().length; i++) {
-            for (int j = 0; j < this.terrain.getGrille()[i].length; j++) {
-                if (this.terrain.getGrille()[i][j] == 'F') {
+        for (int i = 0; i < this.terrain.getGrilleInit(this.niveauActuel).length; i++) {
+            for (int j = 0; j < this.terrain.getGrilleInit(this.niveauActuel)[i].length; j++) {
+                if (this.terrain.getGrilleInit(this.niveauActuel)[i][j] == 'F') {
                     if (!this.fantomes.isEmpty()) {
                         Fantome fantome = this.fantomes.remove(0); // Retire le premier fantôme de la liste
+                        this.terrain.getGrille()[fantome.getPosition().getPositionX()][fantome.getPosition().getPositionY()] = '.';
                         fantome.setPosition(new Point(i, j));
+                        this.terrain.getGrille()[i][j] = 'F';
                         this.fantomes.add(fantome); // Ajoute le fantôme mis à jour à la fin de la liste
                     }
-                } else if (this.terrain.getGrille()[i][j] == 'P') {
+                } else if (this.terrain.getGrilleInit(this.niveauActuel)[i][j] == 'P') {
+                    System.out.println("PACMAN AVANT REINIT "+this.pacMan.getPosition().getPositionX() +" "+this.pacMan.getPosition().getPositionY());
+                    this.terrain.getGrille()[this.pacMan.getPosition().getPositionX()][this.pacMan.getPosition().getPositionY()] = '.';
                     this.pacMan.setPosition(new Point(i,j));
+                    this.terrain.getGrille()[i][j] = 'P';
+                    System.out.println("PACMAN APRES REINIT "+this.pacMan.getPosition().getPositionX() +" "+this.pacMan.getPosition().getPositionY());
                 }
             }
         }
-        System.out.println("FINISH REINIT "+this.pacMan.getVies());
+        System.out.println("FINISH REINIT ");
     }
 
 
@@ -207,6 +221,12 @@ public class Game {
             fantome.deplacer(this.terrain.getGrille()); // Appeler la méthode deplacement du fantome
         }
     }
+
+    public void gestionCollision() {
+        this.collisionEnCours = true;
+        reinitialiserGrille(); // Appel à la réinitialisation de la grille
+    }
+
 
     public void afficherGrille(char[][] grille) {
         for (int i = 0; i < grille.length; i++) {

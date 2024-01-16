@@ -38,7 +38,7 @@ public class PacMan extends Personnage {
             this.game.gameOver(); // fin du jeu
         } else {
             System.out.println("Pacman a perdu une vie. Vies restantes : " + vies);
-            this.game.reinitialiserGrille();
+            this.game.gestionCollision();
         }
     }
 

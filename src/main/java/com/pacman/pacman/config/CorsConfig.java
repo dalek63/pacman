@@ -17,6 +17,7 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
         // Autorise toutes les origines, méthodes, et en-têtes (à ajuster selon vos besoins)
         config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("https://pacman-aos.netlify.app/");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         source.registerCorsConfiguration("/**", config);

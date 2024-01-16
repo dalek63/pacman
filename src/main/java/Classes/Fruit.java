@@ -1,5 +1,7 @@
 package Classes;
 
+import java.util.List;
+
 public class Fruit {
     private TypeFruit type;
     private Point position;
@@ -24,22 +26,28 @@ public class Fruit {
     public void setPosition(Point position) {
         this.position = position;
     }
+    // Méthode pour obtenir l'objet Fruit à une position spécifique dans la liste de fruits
 
-    public int getScore() {
-        // Implémentez la logique pour obtenir le nombre de points associés à ce fruit
-        // Par exemple, en utilisant une correspondance entre le type de fruit et les points
+    public int getPointsFruit() {
+
         int points = 0;
         switch (type) {
             case CERISE:
                 points = 100; // Exemple de points pour une cerise
                 break;
-            case ORANGE:
+            case BANANE:
                 points = 200; // Exemple de points pour une orange
                 break;
-            // Ajoutez d'autres cas pour les différents types de fruits
+
+            case KIWI :
+                points = 300;
+
+                break;
             default:
                 points = 0; // Par défaut, aucun point
         }
         return points;
     }
+
+
 }

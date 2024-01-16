@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 //@RequestMapping("/game")
 @RestController
 @SessionAttributes("game")
+@CrossOrigin
 public class GameController {
 
     private final Game game;

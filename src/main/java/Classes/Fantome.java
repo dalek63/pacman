@@ -30,7 +30,7 @@ public class Fantome extends Personnage {
         int directionSave = 5;
         int anciennePositionX = positionX;
         int anciennePositionY = positionY;
-        char ancienContenu = this.game.getTerrain()[anciennePositionX][anciennePositionY];
+//        char ancienContenu = this.game.getTerrain()[anciennePositionX][anciennePositionY];
 
         System.out.println("Postion Fantome "+ position.getPositionX() +" "+position.getPositionY());
 
@@ -89,8 +89,8 @@ public class Fantome extends Personnage {
             caseEcrasee = '.'; // Si la nouvelle position n'est pas un bonus, réinitialisez caseEcrasee
         }
 */
-        this.game.getTerrain()[anciennePositionX][anciennePositionY] = '.';
-        this.game.getTerrain()[position.getPositionX()][position.getPositionY()] = 'F'; // Nouvelle position avec le fantôme
+        terrain[anciennePositionX][anciennePositionY] = '.';
+        terrain[position.getPositionX()][position.getPositionY()] = 'F'; // Nouvelle position avec le fantôme
 //        this.game.getTerrain()[anciennePositionX][anciennePositionY] = ancienContenu;   // Restaurer le bonus à l'ancienne position du fantôme
 
         System.out.println("Postion Fantome après maj "+ position.getPositionX() +" "+ position.getPositionY());
@@ -127,20 +127,20 @@ public class Fantome extends Personnage {
         if (newX < 0 || newX >= this.game.getTerrain().length || newY < 0 || newY >= this.game.getTerrain()[0].length) {
             System.out.println("Fantome a atteint la limite de grille " + direction);
             System.out.println("Valeur de NewX = "+newX);
-            System.out.println("TabX valeur = "+this.game.getTerrain()[0].length);
+            System.out.println("TabX valeur = "+terrain[0].length);
             System.out.println("Valeur de NewY = "+newY);
-            System.out.println("TabY valeur = "+this.game.getTerrain().length);
+            System.out.println("TabY valeur = "+terrain.length);
 
             return false; // En dehors de la grille
         }
 
         // Vérifier s'il y a un mur à la nouvelle position
-        if (this.game.getTerrain()[newX][newY] == 'M') {
+        if (terrain[newX][newY] == 'M') {
             System.out.println("Collision Fantome avec un MUR");
             return false; // Mur présent
         }
 
-        if (this.game.getTerrain()[newX][newY] == 'P') {
+        if (terrain[newX][newY] == 'P') {
             // Collision avec un fantôme, perdre une vie
             System.out.println("Collision avec un Pacman");
             this.game.getPacMan().perdreVies();

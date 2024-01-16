@@ -80,11 +80,8 @@ public class Game {
         this.started = false ;
     }
 
-// TO DO Creer un enum de map qui est constant pour réinit la grille du niveau en cours quand on perd une vie
+
     public void reinitialiserGrille() {
-        this.terrain = new Terrain();
-        this.terrain.setInitGrille(); // Réinitialise la map d'origine
-        initialiserFruitEtBoule(); // TO DO reinitiliser et save les manger
         reinitialiserFantomesEtPacman();
     }
 
@@ -92,8 +89,11 @@ public class Game {
         System.out.println("INIT JEU");
         initParametre();
         initialiserFruitEtBoule();
+        if(this.pacMan != null){
+            System.out.println("PACMAN AVANT INIT X "+this.pacMan.getPosition().getPositionX()+" Y "+this.pacMan.getPosition().getPositionY());
+        }
         initialiserFantomesEtPacman();
-
+        System.out.println("PACMAN APRES INIT X "+this.pacMan.getPosition().getPositionX()+" Y "+this.pacMan.getPosition().getPositionY());
     }
 
     public void initParametre(){ // PARAM INIT JEU
@@ -101,19 +101,20 @@ public class Game {
         this.isWin = false;
         this.score = 0;
         this.niveauActuel = 1;
-        this.terrain.setInitGrille();
-
+        this.terrain = new Terrain();
+        this.fantomes.clear();
     }
 
 
     private void initialiserFantomesEtPacman() {
+        System.out.println("INIT PACMAN ET FANTOMES");
+        afficherGrille(this.terrain.getGrille());
         for (int i = 0; i < this.terrain.getGrille().length; i++) {
             for (int j = 0; j < this.terrain.getGrille()[i].length; j++) {
                 if (this.terrain.getGrille()[i][j] == 'F') {
                     // Trouvé un fantôme dans la grille, instanciez un objet Fantome
                     Fantome fantome = new Fantome(new Point(i, j),this);
                     this.fantomes.add(fantome);
-                    System.out.println("INIT FANTOME "+this.fantomes.toString());
                 } else if (this.terrain.getGrille()[i][j] == 'P') {
                     // Trouvé le Pac-Man dans la grille, instanciez un objet Pacman
                     PacMan pacman = new PacMan(new Point(i, j),this);
@@ -126,6 +127,8 @@ public class Game {
 
     private void reinitialiserFantomesEtPacman() {
         System.out.println("Start REINIT");
+        System.out.println("PACMAN REINIT "+this.pacMan.getVies());
+
         for (int i = 0; i < this.terrain.getGrille().length; i++) {
             for (int j = 0; j < this.terrain.getGrille()[i].length; j++) {
                 if (this.terrain.getGrille()[i][j] == 'F') {
@@ -139,7 +142,7 @@ public class Game {
                 }
             }
         }
-        System.out.println("FINISH REINIT");
+        System.out.println("FINISH REINIT "+this.pacMan.getVies());
     }
 
 
